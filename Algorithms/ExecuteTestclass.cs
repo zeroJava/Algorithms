@@ -12,7 +12,8 @@ namespace Algorithms
         {
             //GridsearchHRimplementation gridsearch = new GridsearchHRimplementation();
             //PairsHRsearchcs paris = new PairsHRsearchcs();
-            LongFactorialHRimplementation imp = new LongFactorialHRimplementation();
+            //LongFactorialHRimplementation imp = new LongFactorialHRimplementation();
+            Encrytion encrytion = new Encrytion();
         }
     }
 }
