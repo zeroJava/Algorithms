@@ -26,51 +26,51 @@ namespace Algorithms
                 */
 
                 //column++;
-                row++; // we increement row to provide space for the remaining strings
+                row++; // we increement row to provide space for the remaining characters
             }
 
-            string[,] grid = GenerateGrid(strSpaceRemved, (int)row, (int)column);
-            PrintGrid(grid);
+            string[,] grid = GenerateGrid(strSpaceRemved, (int)row, (int)column); // we generate the 2d array to the split and hold the characters if the string
+            PrintGrid(grid); // this prints out the characters in the grid
 
-            string value = Encrpt(grid);
+            string value = Encrypt(grid); // we do the encryption using the Ecrypt method
             Console.WriteLine(value);
 
             Console.ReadKey();
         }
 
-        private string[,] GenerateGrid(string str, int row, int column)
+        private string[,] GenerateGrid(string str, int row, int column) // this method will generate and return a grid
         {
-            string[,] grid = new string[row, column];
-            string temp = str;
+            string[,] grid = new string[row, column]; // here we create our grid or our 2d array
+            string temp = str; // a temporary string to hold our string value
 
-            for(int rows = 0; rows < grid.GetLength(0); rows++)
+            for(int rows = 0; rows < grid.GetLength(0); rows++) // we start by going through each row and and column
             {
                 for(int columns = 0; columns < grid.GetLength(1); columns++)
                 {
                     if( !(temp.Equals("")) && temp.Length > 0)
                     {
-                        grid[rows, columns] = temp[0]+"";
-                        temp = temp.Remove(0, 1);
-                        continue;
+                        grid[rows, columns] = temp[0]+""; // here we add the character to a specific location in the grid
+                        temp = temp.Remove(0, 1); // for every iteration we remove the character that's been added to the grid from the temp string
+                        continue; // safety mechanism to stop us going to the goto statement
                     }
-
                     goto outter;
                 }
             }
-            outter :
+            outter:
 
-            return grid;
+            return grid; // returns the grid we created
         }
 
-        private string Encrpt(string[,] grid)
+        private string Encrypt(string[,] grid)
         {
-            string value = "";
+            string value = ""; // varaiable to hold ecrypted value
 
-            for(int column = 0; column < grid.GetLength(1); column++)
+            for(int column = 0; column < grid.GetLength(1); column++) 
             {
                 for(int row = 0; row < grid.GetLength(0); row++)
                 {
-                    value = value + grid[row, column];
+                    // here we go through each columns first, and them we collect all the data from the rows within that column, and then add the result to value
+                    value = value + grid[row, column]; 
                 }
                 value += " ";
             }
