@@ -10,16 +10,31 @@ namespace Algorithms
     {
         public Encrytion()
         {
-            string input = System.Console.ReadLine();
-            string strSpaceRemved = input.Replace(" ", "");
+            string input = System.Console.ReadLine(); // we input the string
+            string strSpaceRemved = input.Replace(" ", ""); // we start to trim of the white spaces, leaving us with just characters
             Console.WriteLine(strSpaceRemved);
 
-            double sqrootString = Math.Sqrt(strSpaceRemved.Length);
-            double column = Math.Ceiling(sqrootString);
-            double row = Math.Floor(sqrootString);
+            double sqrootString = Math.Sqrt(strSpaceRemved.Length); // we get the square root of refined string. the value returned will define the column and row size.
+            double column = Math.Ceiling(sqrootString); // getting the value of column for 2d array
+            double row = Math.Floor(sqrootString); // getting the value for row, for our 2d array
+            // the value of columns has to be bigger than the value of row
+
+            if( ( (int)(column * row) ) < strSpaceRemved.Length)
+            {
+                /* This safety mechanism checks if the value produced from column * row is bigger than the length of strSpaceRemved.
+                * This is important, because we need to make sure that our 2d array has enough space to hold the characters from the string
+                */
+
+                //column++;
+                row++; // we increement row to provide space for the remaining strings
+            }
 
             string[,] grid = GenerateGrid(strSpaceRemved, (int)row, (int)column);
             PrintGrid(grid);
+
+            string value = Encrpt(grid);
+            Console.WriteLine(value);
+
             Console.ReadKey();
         }
 
@@ -28,14 +43,13 @@ namespace Algorithms
             string[,] grid = new string[row, column];
             string temp = str;
 
-            for(int index1 = 0; index1 < grid.GetLength(0); index1++)
+            for(int rows = 0; rows < grid.GetLength(0); rows++)
             {
-                for(int index2 = 0; index2 < grid.GetLength(1); index2++)
+                for(int columns = 0; columns < grid.GetLength(1); columns++)
                 {
-                    grid[index1, index2] = temp[0]+"";
-
                     if( !(temp.Equals("")) && temp.Length > 0)
                     {
+                        grid[rows, columns] = temp[0]+"";
                         temp = temp.Remove(0, 1);
                         continue;
                     }
@@ -48,8 +62,26 @@ namespace Algorithms
             return grid;
         }
 
+        private string Encrpt(string[,] grid)
+        {
+            string value = "";
+
+            for(int column = 0; column < grid.GetLength(1); column++)
+            {
+                for(int row = 0; row < grid.GetLength(0); row++)
+                {
+                    value = value + grid[row, column];
+                }
+                value += " ";
+            }
+
+            return value;
+        }
+
         private void PrintGrid(string[,] str)
         {
+            Console.WriteLine();
+
             for(int i = 0; i < str.GetLength(0); i++)
             {
                 for(int j = 0; j < str.GetLength(1); j++)
@@ -58,6 +90,8 @@ namespace Algorithms
                 }
                 System.Console.WriteLine();
             }
+
+            Console.WriteLine();
         }
     }
 }
