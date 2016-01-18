@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Algorithms
 {
-    class Encrytion
+    class EncrytionHRimplemenation
     {
-        public Encrytion()
+        public EncrytionHRimplemenation()
         {
             string input = System.Console.ReadLine(); // we input the string
             string strSpaceRemved = input.Replace(" ", ""); // we start to trim of the white spaces, leaving us with just characters
