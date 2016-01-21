@@ -21,7 +21,7 @@ namespace Algorithms
                                  { 1,  2,  3,  4,  5,  6,  7,  8,  9,  10 },
                                };
 
-        private int point = 1;
+        private int pointCurrently = 1;
         private const int end = 100;
 
         private int[,] coordinatesLadders;
@@ -43,7 +43,7 @@ namespace Algorithms
 
                 //int noMoves;
 
-                int[] arr = AreaWithLadders();
+                int[] arr = ScanPathForLadders();
                 Console.WriteLine(FindhighestLadder(arr));
                 Console.ReadKey();
             }
@@ -68,20 +68,43 @@ namespace Algorithms
         public int Simulation()
         {
             int moves = 0;
+            bool state = true;
 
+            while(state)
+            {
+                int target = pointCurrently;
 
+                int[] moveAblePath = ScanPathForLadders();
+                bool laddersDecision = ContainsALadders(moveAblePath);
+
+                if(laddersDecision)
+                {
+                    int highestLadder = FindhighestLadder(moveAblePath);
+                    pointCurrently = highestLadder;
+                    moves++;
+
+                    if(pointCurrently == end)
+                    {
+                        state = false;
+                    }
+                }
+                else
+                {
+
+                }
+            }
 
             return moves;
         }
 
-        public int[] AreaWithLadders()
+        public int[] ScanPathForLadders()
         {
             int[] array = new int[6] { 0, 0, 0, 0, 0, 0 };
             int index = 0;
 
-            int limit = point + 6;
+            int limit = pointCurrently + 6;
 
-            for(int calpoint = point + 1; calpoint <= limit; calpoint++)
+            for(int calpoint = pointCurrently + 1; calpoint <= limit; calpoint++)
             {
                 for(int i = 0; i < coordinatesLadders.GetLength(0); i++)
                 {
@@ -96,9 +119,23 @@ namespace Algorithms
             return array;
         }
 
+        public bool ContainsALadders(int[] array)
+        {
+            foreach(int element in array)
+            {
+                if(element != 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public int FindhighestLadder(int[] array)
         {
-            int placeholder = 0;
+            int highestPoint = 0;
+            int beginingPoint = 0;
 
             for(int iter = 0; iter < array.Length; iter++)
             {
@@ -108,13 +145,14 @@ namespace Algorithms
                 }
 
                 int temp = EndofLadder(array[iter]);
-                if(placeholder < temp)
+                if(highestPoint < temp)
                 {
-                    placeholder = temp;
+                    highestPoint = temp;
+                    beginingPoint = array[iter];
                 }
             }
 
-            return placeholder;
+            return highestPoint;
         }
 
         private int EndofLadder(int bengin)
