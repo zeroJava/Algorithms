@@ -50,6 +50,7 @@
     <Compile Include="LongFactorialHRimplementation.cs" />
     <Compile Include="PairsHRsearchcs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SnakeLaddHRgraphtheory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

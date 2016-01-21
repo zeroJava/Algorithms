@@ -13,7 +13,8 @@ namespace Algorithms
             //GridsearchHRimplementation gridsearch = new GridsearchHRimplementation();
             //PairsHRsearchcs paris = new PairsHRsearchcs();
             //LongFactorialHRimplementation imp = new LongFactorialHRimplementation();
-            EncrytionHRimplemenation encrytion = new EncrytionHRimplemenation();
+            //EncrytionHRimplemenation encrytion = new EncrytionHRimplemenation();
+            SnakeLaddHRgraphtheory snakesNladders = new SnakeLaddHRgraphtheory();
         }
     }
 }
