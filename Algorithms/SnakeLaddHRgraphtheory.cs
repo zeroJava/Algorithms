@@ -35,17 +35,14 @@ namespace Algorithms
             {
                 int laddersNo = Int32.Parse(System.Console.ReadLine());
                 coordinatesLadders = GenerateCoordinates(laddersNo);
-                DisplayGrid(coordinatesLadders);
+                //DisplayGrid(coordinatesLadders);
 
                 int snakesNo = Int32.Parse(System.Console.ReadLine());
                 coordinatesSnakes = GenerateCoordinates(snakesNo);
-                DisplayGrid(coordinatesSnakes);
+                //DisplayGrid(coordinatesSnakes);
 
-                //int noMoves;
-
-                int[] arr = ScanPathForLadders();
-                Console.WriteLine(FindhighestLadder(arr));
-                Console.ReadKey();
+                Console.WriteLine(Simulation());
+                //Console.ReadKey();
             }
         }
 
@@ -57,7 +54,7 @@ namespace Algorithms
             {
                 for(int col = 0; col < 2; col++)
                 {
-                    Console.WriteLine("enetr coordinates");
+                    //Console.WriteLine("enetr coordinates");
                     coordinates[rwI, col] = Int32.Parse(System.Console.ReadLine());
                 }
             }
@@ -87,10 +84,43 @@ namespace Algorithms
                     {
                         state = false;
                     }
+
+                    //Console.WriteLine(pointCurrently);
                 }
                 else
                 {
+                    int near = 100 - pointCurrently;
 
+                    if( near < 7 && near > 0)
+                    {
+                        pointCurrently = pointCurrently + near;
+                    }
+                    else
+                    {
+                        int maxmove = 6;
+                        bool dec = true;
+
+                        while(dec)
+                        {
+                            int ahead = pointCurrently + maxmove;
+
+                            if(ContainsSnake(ahead))
+                            {
+                                maxmove--;
+                            }
+                            else
+                            {
+                                pointCurrently = ahead;
+                                moves++;
+                                dec = false;
+                            }
+                        }
+                    }
+
+                    if(pointCurrently == 100)
+                    {
+                        state = false;
+                    }
                 }
             }
 
@@ -161,12 +191,25 @@ namespace Algorithms
             {
                 if(bengin == coordinatesLadders[i, 0])
                 {
-                    Console.WriteLine("cbdc");
+                    //Console.WriteLine("cbdc");
                     return coordinatesLadders[i, 1];
                 }
             }
 
             return 0;
+        }
+
+        public bool ContainsSnake(int number)
+        {
+            for(int row = 0; row < coordinatesSnakes.GetLength(0); row++)
+            {
+                if(number == coordinatesSnakes[row, 0])
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void DisplayGrid(int[,] grid)
