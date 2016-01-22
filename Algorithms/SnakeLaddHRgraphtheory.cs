@@ -32,13 +32,15 @@ namespace Algorithms
         {
             int testcase = Int32.Parse(System.Console.ReadLine());
 
-            for(int i = 0; i < testcase; i++)
+            for (int i = 0; i < testcase; i++)
             {
-                int laddersNo = Int32.Parse(System.Console.ReadLine());
+                string str1 = System.Console.ReadLine();
+                int laddersNo = Int32.Parse(str1);
                 coordinatesLadders = GenerateCoordinates(laddersNo);
                 //DisplayGrid(coordinatesLadders);
 
-                int snakesNo = Int32.Parse(System.Console.ReadLine());
+                string str2 = System.Console.ReadLine();
+                int snakesNo = Int32.Parse(str2);
                 coordinatesSnakes = GenerateCoordinates(snakesNo);
                 //DisplayGrid(coordinatesSnakes);
 
@@ -53,10 +55,13 @@ namespace Algorithms
 
             for(int rwI = 0; rwI < row; rwI++)
             {
-                for(int col = 0; col < 2; col++)
+                string coordin = System.Console.ReadLine();
+                string[] coordinArray = coordin.Split(' ');
+
+                for (int col = 0; col < 2; col++)
                 {
                     //Console.WriteLine("enetr coordinates");
-                    coordinates[rwI, col] = Int32.Parse(System.Console.ReadLine());
+                    coordinates[rwI, col] = Int32.Parse(coordinArray[col]);
                 }
             }
 
