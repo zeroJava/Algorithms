@@ -14,7 +14,17 @@ namespace Algorithms
             //PairsHRsearchcs paris = new PairsHRsearchcs();
             //LongFactorialHRimplementation imp = new LongFactorialHRimplementation();
             //EncrytionHRimplemenation encrytion = new EncrytionHRimplemenation();
-            SnakeLaddHRgraphtheory snakesNladders = new SnakeLaddHRgraphtheory();
+            //SnakeLaddHRgraphtheory snakesNladders = new SnakeLaddHRgraphtheory();
+
+            /*Algorithms.ImplementationHR.SherlockandSquare sherlock = new ImplementationHR.SherlockandSquare();
+            sherlock.ExcuteLogic();*/
+            //int i = sherlock.Number(0, 465868129, 988379794);
+            //System.Console.WriteLine(""+ i);
+            //System.Console.WriteLine("" + 3.1 % 1);
+
+            Algorithms.ImplementationHR.Servicelane lane = new ImplementationHR.Servicelane();
+
+            System.Console.Read();
         }
     }
 }

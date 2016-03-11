@@ -47,6 +47,8 @@
     <Compile Include="EncrytionHRimplementation.cs" />
     <Compile Include="ExecuteTestclass.cs" />
     <Compile Include="GridsearchHRimplementation.cs" />
+    <Compile Include="ImplementationHR\Servicelane.cs" />
+    <Compile Include="ImplementationHR\SherlockandSquare.cs" />
     <Compile Include="LongFactorialHRimplementation.cs" />
     <Compile Include="PairsHRsearchcs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
