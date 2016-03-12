@@ -44,19 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EncrytionHRimplementation.cs" />
+    <Compile Include="ImplementationHR\EncrytionHRimplementation.cs" />
     <Compile Include="ExecuteTestclass.cs" />
-    <Compile Include="GridsearchHRimplementation.cs" />
+    <Compile Include="ImplementationHR\GridsearchHRimplementation.cs" />
     <Compile Include="ImplementationHR\Servicelane.cs" />
     <Compile Include="ImplementationHR\SherlockandSquare.cs" />
-    <Compile Include="LongFactorialHRimplementation.cs" />
-    <Compile Include="PairsHRsearchcs.cs" />
+    <Compile Include="ImplementationHR\LongFactorialHRimplementation.cs" />
+    <Compile Include="SearchHR\PairsHRsearchcs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SnakeLaddHRgraphtheory.cs" />
+    <Compile Include="GraphTheoryHR\SnakeLaddHRgraphtheory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
