@@ -22,7 +22,9 @@ namespace Algorithms
             //System.Console.WriteLine(""+ i);
             //System.Console.WriteLine("" + 3.1 % 1);
 
-            Algorithms.ImplementationHR.Servicelane lane = new ImplementationHR.Servicelane();
+            //Algorithms.ImplementationHR.Servicelane lane = new ImplementationHR.Servicelane();
+
+            Algorithms.ImplementationHR.CutTheSticks cutstick = new ImplementationHR.CutTheSticks();
 
             System.Console.Read();
         }
