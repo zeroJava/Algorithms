@@ -24,7 +24,9 @@ namespace Algorithms
 
             //Algorithms.ImplementationHR.Servicelane lane = new ImplementationHR.Servicelane();
 
-            Algorithms.ImplementationHR.CutTheSticks cutstick = new ImplementationHR.CutTheSticks();
+            //Algorithms.ImplementationHR.CutTheSticks cutstick = new ImplementationHR.CutTheSticks();
+
+            Algorithms.ImplementationHR.CeaserCipher cc = new ImplementationHR.CeaserCipher();
 
             System.Console.Read();
         }

@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImplementationHR\CeaserCipher.cs" />
     <Compile Include="ImplementationHR\CutTheSticks.cs" />
     <Compile Include="ImplementationHR\EncrytionHRimplementation.cs" />
     <Compile Include="ExecuteTestclass.cs" />
