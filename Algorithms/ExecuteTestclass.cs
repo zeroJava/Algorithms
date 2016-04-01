@@ -26,7 +26,9 @@ namespace Algorithms
 
             //Algorithms.ImplementationHR.CutTheSticks cutstick = new ImplementationHR.CutTheSticks();
 
-            Algorithms.ImplementationHR.CeaserCipher cc = new ImplementationHR.CeaserCipher();
+            //Algorithms.ImplementationHR.CeaserCipher cc = new ImplementationHR.CeaserCipher();
+
+            Algorithms.ImplementationHR.LisaWorkbook lisa = new ImplementationHR.LisaWorkbook();
 
             System.Console.Read();
         }

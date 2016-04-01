@@ -49,9 +49,11 @@
     <Compile Include="ImplementationHR\EncrytionHRimplementation.cs" />
     <Compile Include="ExecuteTestclass.cs" />
     <Compile Include="ImplementationHR\GridsearchHRimplementation.cs" />
+    <Compile Include="ImplementationHR\LisaWorkbook.cs" />
     <Compile Include="ImplementationHR\Servicelane.cs" />
     <Compile Include="ImplementationHR\SherlockandSquare.cs" />
     <Compile Include="ImplementationHR\LongFactorialHRimplementation.cs" />
+    <Compile Include="ImplementationHR\SherlockBeast.cs" />
     <Compile Include="SearchHR\PairsHRsearchcs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GraphTheoryHR\SnakeLaddHRgraphtheory.cs" />
