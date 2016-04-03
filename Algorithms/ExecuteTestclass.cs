@@ -28,7 +28,9 @@ namespace Algorithms
 
             //Algorithms.ImplementationHR.CeaserCipher cc = new ImplementationHR.CeaserCipher();
 
-            Algorithms.ImplementationHR.LisaWorkbook lisa = new ImplementationHR.LisaWorkbook();
+            //Algorithms.ImplementationHR.LisaWorkbook lisa = new ImplementationHR.LisaWorkbook();
+
+            Algorithms.ImplementationHR.Cavitymap cavitymap = new ImplementationHR.Cavitymap();
 
             System.Console.Read();
         }

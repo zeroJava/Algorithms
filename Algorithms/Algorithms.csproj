@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImplementationHR\Cavitymap.cs" />
     <Compile Include="ImplementationHR\CeaserCipher.cs" />
     <Compile Include="ImplementationHR\CutTheSticks.cs" />
     <Compile Include="ImplementationHR\EncrytionHRimplementation.cs" />

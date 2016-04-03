@@ -10,7 +10,7 @@ namespace Algorithms.ImplementationHR
     {
         public LisaWorkbook()
         {
-            System.Console.WriteLine("The lisa work book algorithm");
+            System.Console.WriteLine("The lisa workbook algorithm");
             System.Console.WriteLine("Please enter the number of chapters and the max problem page e.g. 5 3");
             string[] _array = System.Console.ReadLine().Split(' ');
             int[] _input = Array.ConvertAll(_array, Int32.Parse);
@@ -25,95 +25,65 @@ namespace Algorithms.ImplementationHR
 
         private void Execute(int chapter, int max_problems_per_page, int[] problems_per_chapter)
         {
-            int _page = 1;
-            List<List<int>> _chapters = new List<List<int>>();
+            List<List<int>> _pagesWithProblemsAssigned = new List<List<int>>();
+            this.AddingProblemsToEachPage(_pagesWithProblemsAssigned, max_problems_per_page, problems_per_chapter);
 
-            for(int index = 0; index < chapter; index++)
-            {
-                List<int> _pages = new List<int>();
+            System.Console.WriteLine(this.NumberOfSpecialNumber(_pagesWithProblemsAssigned));
+        }
 
-                if(max_problems_per_page < problems_per_chapter[index] && problems_per_chapter[index] % max_problems_per_page != 0)
-                {
-                    int pg = (int)Math.Ceiling((double)problems_per_chapter[index] / max_problems_per_page);
-                    AlocateNumberToPages(ref _page, pg, _pages);
-                }
-                else if( (problems_per_chapter[index] / max_problems_per_page) == 0)
-                {
-                    AlocateNumberToPages(ref _page, 1, _pages);
-                }
-                else
-                {
-                    int pg = (int)Math.Ceiling((double)problems_per_chapter[index] / max_problems_per_page);
-                    AlocateNumberToPages(ref _page, pg, _pages);
-                }
-
-                _chapters.Add(_pages);
-            }
-
-            List<List<int>> _list = new List<List<int>>();
-
-            for(int chapterNumber = 0; chapterNumber < _chapters.Count; chapterNumber++)
+        private void AddingProblemsToEachPage(List<List<int>> pagesWithProblems, int max_problems_per_page, int[] problems_per_chapter)
+        {
+            for (int chapterNumber = 0; chapterNumber < problems_per_chapter.Length; chapterNumber++)
             {
                 int _num = 1;
-                int iter = _num;
-                List<int> _ti = new List<int>();
+                int _iteration = _num;
+                List<int> _problems = new List<int>();
 
-                while(_num <= problems_per_chapter[chapterNumber])
+                while (_num <= problems_per_chapter[chapterNumber])
                 {
-                    _ti.Add(_num);
+                    _problems.Add(_num);
 
-                    if(iter == max_problems_per_page)
+                    if (_iteration == max_problems_per_page)
                     {
-                        _list.Add(_ti);
+                        pagesWithProblems.Add(_problems);
                         _num++;
-                        iter = 1;
-                        _ti = new List<int>();
+                        _iteration = 1;
+                        _problems = new List<int>();
                         continue;
                     }
 
                     _num++;
-                    iter++;
-                    
+                    _iteration++;
                 }
 
-                if(_ti.Count == 0)
+                if (_problems.Count == 0)
                 {
                     continue;
                 }
                 else
                 {
-                    _list.Add(_ti);
-                }
-            }
-
-            int _specialNumber = 0;
-
-            for(int index = 0; index < _chapters.Count; index++)
-            {
-                /*for(int page = 0; page < )
-                {
-
-                }*/
-            }
-
-            for(int i = 0; i < _list.Count; i++)
-            {
-                System.Console.WriteLine("page " + i);
-
-                for (int j = 0; j <_list[i].Count; j++)
-                {
-                    System.Console.WriteLine("problem " + _list[i][j]);
+                    pagesWithProblems.Add(_problems);
                 }
             }
         }
 
-        private void AlocateNumberToPages(ref int page, int number_of_pages, List<int> list)
+        private int NumberOfSpecialNumber(List<List<int>> pagesWithProblems)
         {
-            for(int index = 0; index < number_of_pages; index++)
+            int _noOfSpecialNumbers = 0;
+
+            int i = 0;
+            while(i < pagesWithProblems.Count)
             {
-                list.Add(page);
-                page++;
+                int _page = i + 1;
+                if(pagesWithProblems[i].Contains(_page))
+                {
+                    _noOfSpecialNumbers++;
+                }
+
+                i++;
             }
+
+            return _noOfSpecialNumbers;
         }
     }
 }
