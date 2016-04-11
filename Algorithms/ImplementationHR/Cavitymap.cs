@@ -21,7 +21,7 @@ namespace Algorithms.ImplementationHR
             {
                 System.Console.WriteLine("Please enter the data for each row. e.g. 1234");
                 char[] _inputedData = Console.ReadLine().ToCharArray();
-                
+
                 for(int column = 0; column < _inputedData.Length; column++)
                 {
                     _grid[row, column] = _inputedData[column].ToString();
@@ -49,15 +49,15 @@ namespace Algorithms.ImplementationHR
                 }
             }
 
-            this.Display(grid); 
+            this.Display(grid);
         }
 
         private bool ConditionMet(string[,] grid, int current_row, int current_column, string current)
         {
-            int _top = Int32.Parse(grid[current_row -1, current_column]);
-            int _bottom = Int32.Parse(grid[current_row +1, current_column]);
-            int _right = Int32.Parse(grid[current_row, current_column +1]);
-            int _left = Int32.Parse(grid[current_row, current_column -1]);
+            int _top = Int32.Parse(grid[current_row - 1, current_column]);
+            int _bottom = Int32.Parse(grid[current_row + 1, current_column]);
+            int _right = Int32.Parse(grid[current_row, current_column + 1]);
+            int _left = Int32.Parse(grid[current_row, current_column - 1]);
 
             int _currentNUmber = Int32.Parse(current);
 
@@ -72,9 +72,9 @@ namespace Algorithms.ImplementationHR
         private bool CellsContainX(string[,] grid, int current_row, int current_column)
         {
             string _top = grid[current_row - 1, current_column];
-            string _bottom = grid[current_row - 1, current_column];
-            string _left = grid[current_row, current_column +1];
-            string _right = grid[current_row, current_column -1];
+            string _bottom = grid[current_row + 1, current_column];
+            string _left = grid[current_row, current_column + 1];
+            string _right = grid[current_row, current_column - 1];
 
             if(_top.Equals("X") || _bottom.Equals("X") || _left.Equals("X") || _right.Equals("X"))
             {
