@@ -58,6 +58,8 @@
     <Compile Include="SearchHR\PairsHRsearchcs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GraphTheoryHR\SnakeLaddHRgraphtheory.cs" />
+    <Compile Include="SortHR\AlmostSort.cs" />
+    <Compile Include="SortHR\DevideAndConquer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

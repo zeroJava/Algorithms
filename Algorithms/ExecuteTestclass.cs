@@ -30,7 +30,11 @@ namespace Algorithms
 
             //Algorithms.ImplementationHR.LisaWorkbook lisa = new ImplementationHR.LisaWorkbook();
 
-            Algorithms.ImplementationHR.Cavitymap cavitymap = new ImplementationHR.Cavitymap();
+            //Algorithms.ImplementationHR.Cavitymap cavitymap = new ImplementationHR.Cavitymap();
+
+            //Algorithms.SortHR.DevideAndConquer _devideAndConquer = new SortHR.DevideAndConquer();
+
+            SortHR.AlmostSort _alomost = new SortHR.AlmostSort();
 
             System.Console.Read();
         }
