@@ -10,38 +10,53 @@ namespace Algorithms.SortHR
     {
         public AlmostSort()
         {
-            int[] _array = { 1, 2, 3, 4, 5, 6, 8, 9, 7, 10, 11 };
+            int[] _array = { 1, 2, 3, 4, 5, 6, 9, 7, 8, 10, 11 };
             Execute(_array);
         }
 
         public void Execute(int[] array)
         {
-            Decision(array);
-        }
-
-        /// <summary>
-        /// Yes means that approach used will be reverse one segmentation.
-        /// No means that approach used will be swap
-        /// </summary>
-        /// <returns></returns>
-        private bool Decision(int[] array)
-        {
-            int _beginningAnomoly = 0;
+            int _beginningAnomoly= 0;
             int _endingAnology = 0;
             int _lengthOfAnomoly = 0;
 
+            bool _descion = Decision(array, ref _beginningAnomoly, ref _endingAnology, ref _lengthOfAnomoly);
+
+            if(_descion == true)
+            {
+                System.Console.WriteLine("Reverse");
+            }
+            else if(_descion == false)
+            {
+                System.Console.WriteLine("Swap");
+            }
+        }
+
+        /// <summary>
+        /// True means that approach used will be reverse one segmentation.
+        /// False means that approach used will be swap
+        /// </summary>
+        /// <returns></returns>
+        private bool Decision(int[] array, ref int beginningAnomoly, ref int endingAnology, ref int lengthOfAnomoly)
+        {
             for(int index = 0; index < array.Length - 1; index++)
             {
                 if(array[index] > array[index + 1])
                 {
-                    _beginningAnomoly = index;
+                    beginningAnomoly = index;
 
-                    FindAnomoly(array, ref _beginningAnomoly, ref _endingAnology, ref _lengthOfAnomoly); // We use this function to find our anomoly
-                    //break;
+                    FindAnomoly(array, ref beginningAnomoly, ref endingAnology, ref lengthOfAnomoly); // We use this function to find our anomoly
+                    break;
                 }
             }
 
-            System.Console.WriteLine("The beginning, ending and size" + _beginningAnomoly + " " + _endingAnology + " " + _lengthOfAnomoly);
+            System.Console.WriteLine("The beginning, ending and size" + beginningAnomoly + " " + endingAnology + " " + lengthOfAnomoly);
+
+            if (lengthOfAnomoly > 2 && SectionSortedDescending(array, beginningAnomoly, endingAnology))
+            {
+                System.Console.WriteLine("The beginning, ending and size" + beginningAnomoly + " " + endingAnology + " " + lengthOfAnomoly);
+                return true;
+            }
 
             return false;
         }
@@ -76,6 +91,28 @@ namespace Algorithms.SortHR
             }
 
             length = (ending - beginning) + 1;
+        }
+
+        private bool SectionSortedDescending(int[] array, int beginning, int ending)
+        {
+            for(int index = ending; index > beginning; index--)
+            {
+                if(array[index - 1] < array[index])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void Swap(int[] array, int beginning, int ending)
+        {
+            int _valueOfFirst = array[beginning];
+            int _valueOfLast = array[ending];
+
+            array[beginning] = _valueOfLast;
+            array[ending] = _valueOfFirst;
         }
     }
 }
