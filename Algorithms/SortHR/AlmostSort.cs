@@ -10,8 +10,7 @@ namespace Algorithms.SortHR
     {
         public AlmostSort()
         {
-            int[] _array = { 1, 2, 3, 4, 5, 6, 9, 7, 8, 10, 11 };
-            Execute(_array);
+
         }
 
         public void Execute(int[] array)
@@ -19,16 +18,32 @@ namespace Algorithms.SortHR
             int _beginningAnomoly= 0;
             int _endingAnology = 0;
             int _lengthOfAnomoly = 0;
+            string _state = null; 
 
             bool _descion = Decision(array, ref _beginningAnomoly, ref _endingAnology, ref _lengthOfAnomoly);
 
-            if(_descion == true)
+            if(_descion) // == true
             {
-                System.Console.WriteLine("Reverse");
+                _state = "reverse";
+                Reverse(array, _beginningAnomoly, _endingAnology);
+                //Display(array);
             }
-            else if(_descion == false)
+            else //if(!_descion) // == false
             {
-                System.Console.WriteLine("Swap");
+                _state = "swap";
+                Swap(array, _beginningAnomoly, _endingAnology);
+                //Display(array);
+            }
+
+            bool _st = Sorted(array, _beginningAnomoly);
+
+            if (_st) // true
+            {
+                System.Console.WriteLine("yes\n" + _state + " " + (_beginningAnomoly + 1) + " " + (_endingAnology));
+            }
+            else
+            {
+                System.Console.WriteLine("no");
             }
         }
 
@@ -50,11 +65,11 @@ namespace Algorithms.SortHR
                 }
             }
 
-            System.Console.WriteLine("The beginning, ending and size" + beginningAnomoly + " " + endingAnology + " " + lengthOfAnomoly);
+            //System.Console.WriteLine("The beginning, ending and size" + beginningAnomoly + " " + endingAnology + " " + lengthOfAnomoly);
 
             if (lengthOfAnomoly > 2 && SectionSortedDescending(array, beginningAnomoly, endingAnology))
             {
-                System.Console.WriteLine("The beginning, ending and size" + beginningAnomoly + " " + endingAnology + " " + lengthOfAnomoly);
+                //System.Console.WriteLine("The beginning, ending and size" + beginningAnomoly + " " + endingAnology + " " + lengthOfAnomoly);
                 return true;
             }
 
@@ -64,46 +79,28 @@ namespace Algorithms.SortHR
         private void FindAnomoly(int[] array, ref int beginning, ref int ending, ref int length)
         {
             int _temp = beginning;
+            int _value = array[beginning];
 
-            for(int index = _temp; index < array.Length - 1; index++) // Here in this loop, we are trying to find were the anomoly ends.
+            for (int index = _temp + 1; index < array.Length; index++) // Here in this loop, we are trying to find were the anomoly ends.
             {
-                if(array[index] < array[index + 1]) 
+                if (array.Length <= 2)
                 {
-                    /* We know that anomoly causes problems with the array by preventing it from getting a perfect ascending order.
-                     * we know that when we come to a point where it is ascending that it is most likely the place where the anomoly stops */
-
-                    ending = index; // we assign the location where the end of the anomoly is reached
+                    ending = index;
                     break;
                 }
-            }
-
-            for(int index = _temp; index > 0; index--) // here we try find the true beginning
-            {
-                /* We know that anomoly causes problems with the array by preventing it from getting a perfect ascending order.
-                 * * we know that when we come to a point where it is ascending that it is most likely the place where the anomoly stops */
-
-                if ( !(array[index] > array[ending]) )
+                else if (array.Length > 2 && _value < array[index]) 
                 {
+                    ending = index - 1; // we assign the location where the end of the anomoly is reached
                     break;
                 }
-
-                beginning = index;
+                else if(index == array.Length - 1)
+                {
+                    ending = index;
+                    break;
+                }
             }
 
             length = (ending - beginning) + 1;
-        }
-
-        private bool SectionSortedDescending(int[] array, int beginning, int ending)
-        {
-            for(int index = ending; index > beginning; index--)
-            {
-                if(array[index - 1] < array[index])
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
 
         private void Swap(int[] array, int beginning, int ending)
@@ -113,6 +110,58 @@ namespace Algorithms.SortHR
 
             array[beginning] = _valueOfLast;
             array[ending] = _valueOfFirst;
+        }
+
+        private void Reverse(int[] array, int beginning, int ending)
+        {
+            IList<int> _list = new List<int>();
+            
+            for(int index = beginning; index <= ending; index++)
+            {
+                _list.Add(array[index]);
+            }
+
+            int _listIndex = 0;
+
+            for(int index = ending; index >= beginning; index--)
+            {
+                array[index] = _list[_listIndex];
+                _listIndex++;
+            }
+        }
+
+        private bool SectionSortedDescending(int[] array, int beginning, int ending)
+        {
+            for (int index = ending; index > beginning; index--)
+            {
+                if (array[index - 1] < array[index])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool Sorted(int[] array, int starting_point)
+        {
+            for(int index = 0; index < array.Length - 1; index++)
+            {
+                if(array[index] > array[index + 1])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void Display(int[] array)
+        {
+            foreach(int number in array)
+            {
+                System.Console.Write(number + " ");
+            }
         }
     }
 }
