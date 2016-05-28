@@ -120,6 +120,12 @@ namespace Algorithms.SortHR
             length = (ending - beginning) + 1; // After aquiring both begiining and end, we calculate the number of elements we are dealing with, thus getting the size.s
         }
 
+        /// <summary>
+        /// We swap the digit my using the Swap function
+        /// </summary>
+        /// <param name="array">The place where the elements are placed</param>
+        /// <param name="beginning">The first value</param>
+        /// <param name="ending">The second value</param>
         private void Swap(int[] array, int beginning, int ending)
         {
             int _valueOfFirst = array[beginning];
@@ -130,24 +136,38 @@ namespace Algorithms.SortHR
             int[] temp = array;
         }
 
+        /// <summary>
+        /// Using this method we reverse the anamoly
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="beginning"></param>
+        /// <param name="ending"></param>
         private void Reverse(int[] array, int beginning, int ending)
         {
-            IList<int> _list = new List<int>();
+            IList<int> _list = new List<int>(); // This will hold the element of the anomoly temprarly
 
             for (int index = beginning; index <= ending; index++)
             {
-                _list.Add(array[index]);
+                _list.Add(array[index]); // Adding to the list
             }
 
-            int _listIndex = 0;
+            int _listIndex = 0; // will be the index of the list
 
-            for (int index = ending; index >= beginning; index--)
+            for (int index = ending; index >= beginning; index--) // Here is where do the reversing, by getting temporary list and working backwards
             {
                 array[index] = _list[_listIndex];
                 _listIndex++;
             }
         }
 
+        /// <summary>
+        ///  Using the SectionSortedDescending() method, we see if the anomoly has an order in a descending fashion.
+        ///  By checking this, we know that it is not fragmented, and block that needs to placed in the right order, by reversing 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="beginning"></param>
+        /// <param name="ending"></param>
+        /// <returns></returns>
         private bool SectionSortedDescending(int[] array, int beginning, int ending)
         {
             for (int index = ending; index > beginning; index--)
@@ -161,6 +181,12 @@ namespace Algorithms.SortHR
             return true;
         }
 
+        /// <summary>
+        /// This method checks if it is sorted
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="starting_point"></param>
+        /// <returns></returns>
         private bool Sorted(int[] array, int starting_point)
         {
             for (int index = 0; index < array.Length - 1; index++)

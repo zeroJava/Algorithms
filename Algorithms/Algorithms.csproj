@@ -60,6 +60,7 @@
     <Compile Include="GraphTheoryHR\SnakeLaddHRgraphtheory.cs" />
     <Compile Include="SortHR\AlmostSort.cs" />
     <Compile Include="SortHR\DevideAndConquer.cs" />
+    <Compile Include="SortHR\FullCountingSort.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
