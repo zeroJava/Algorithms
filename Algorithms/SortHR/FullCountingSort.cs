@@ -23,7 +23,38 @@ namespace Algorithms.SortHR
         public void Execute()
         {
             int _smallestValue = this.LocateTheSmallestNumber(_integerArray);
+            System.Console.WriteLine("Data enetred");
+            Display(_integerArray, _stringArray);
 
+            int _index = 0;
+            while(_index < _integerArray.Length - 1)
+            {
+                int _tempInd = 1;
+                for(int numberIndex = _index + 1; numberIndex < _integerArray.Length; numberIndex++)
+                {
+                    if(_integerArray[_index] == _integerArray[numberIndex])
+                    {
+                        this.ShiftArrayRight(_integerArray, _stringArray, _index + _tempInd, numberIndex);
+                        _tempInd++;
+                    }
+                    else if(_integerArray[_index] > _integerArray[numberIndex])
+                    {
+                        this.ShiftArrayRight(_integerArray, _stringArray, _index, numberIndex);
+                        _tempInd = 1;
+                    }
+                }
+
+                if(_tempInd > 1)
+                {
+                    _index = _index + _tempInd;
+                    continue;
+                }
+
+                _index++;
+            }
+
+            System.Console.WriteLine("Checking shift");
+            Display(_integerArray, _stringArray);
         }
 
         private void PopulateArray(int[] integerArray, string[] stringArray)
@@ -59,7 +90,35 @@ namespace Algorithms.SortHR
 
         private void ShiftArrayRight(int[] integerArray, string[] stringArray, int beginning, int ending)
         {
+            int _temp = integerArray[ending];
+            string _tempString = stringArray[ending];
 
+            for(int index = ending; index > beginning; index--)
+            {
+                int _number1 = integerArray[index - 1];
+                string _string1 = stringArray[index - 1];
+
+                integerArray[index] = _number1;
+                stringArray[index] = _string1;
+            }
+
+            integerArray[beginning] = _temp;
+            stringArray[beginning] = _tempString;
+        }
+
+        public void Display(int[] integerArray, string[] stringArray)
+        {
+            for(int index = 0; index < integerArray.Length; index++)
+            {
+                System.Console.Write(integerArray[index] + " ");
+            }
+
+            System.Console.WriteLine("");
+
+            for (int index = 0; index < stringArray.Length; index++)
+            {
+                System.Console.Write(stringArray[index] + " ");
+            }
         }
     }
 }
