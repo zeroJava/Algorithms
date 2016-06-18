@@ -10,30 +10,36 @@ namespace Algorithms
     {
         public PairsHRsearchcs()
         {
-            int[] array = { 1, 5, 3, 4, 2, 8, 10, 6 };
-            int dif = 2;
-            System.Console.WriteLine(GetNotpait(array, dif));
+            int[] _array = { 1, 5, 3, 4, 2, 8, 10, 6 };
+            int _dif = 2;
+            System.Console.WriteLine(GetNumberOfPairs(_array, _dif));
             System.Console.ReadKey();
         }
 
-        private int GetNotpait(int[] array, int differenceOf)
+        private int GetNumberOfPairs(int[] array, int differenceOf)
         {
-            int number = 0;
+            int _numberOfPairs = 0;
 
-            for(int index1 = 0; index1 < array.Length - 1; index1++)
+            Array.Sort(array);
+
+            for(int index = 0; index < array.Length - 1; index++)
             {
-                for(int index2 = index1 + 1; index2 < array.Length; index2++)
+                for(int index2 = index + 1; index2 < array.Length; index2++)
                 {
-                    int checkCa = array[index1] - array[index2];
-                    int ch2 = array[index2] - array[index1];
+                    int _result = array[index2] - array[index];
 
-                    if (checkCa == differenceOf || ch2 == differenceOf)
+                    if(_result == differenceOf)
                     {
-                        number++;
+                        _numberOfPairs++;
+                    }
+                    else if(_result > differenceOf)
+                    {
+                        break;
                     }
                 }
             }
-            return number;
+
+            return _numberOfPairs;
         }
     }
 }

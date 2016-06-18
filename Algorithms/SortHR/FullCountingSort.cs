@@ -8,116 +8,77 @@ namespace Algorithms.SortHR
 {
     class FullCountingSort
     {
-        int[] _integerArray;
-        string[] _stringArray;
-
         public FullCountingSort()
         {
-            int _size = int.Parse(System.Console.ReadLine());
-
-            _integerArray = new int[_size];
-            _stringArray = new string[_size];
-            this.PopulateArray(_integerArray, _stringArray);
+            this.Execute();
         }
 
-        public void Execute()
+        private void Execute()
         {
-            int _smallestValue = this.LocateTheSmallestNumber(_integerArray);
-            System.Console.WriteLine("Data enetred");
-            Display(_integerArray, _stringArray);
+            int _size = int.Parse(Console.ReadLine());
 
-            int _index = 0;
-            while(_index < _integerArray.Length - 1)
+            Item[] _items = new Item[_size];
+            Item[]_sorted = new Item[_size];
+            int[] _count = new int[100];
+
+            int _half = _items.Length / 2;
+            Item _temp1;
+
+            for(int index = 0; index < _half; ++index)
             {
-                int _tempInd = 1;
-                for(int numberIndex = _index + 1; numberIndex < _integerArray.Length; numberIndex++)
-                {
-                    if(_integerArray[_index] == _integerArray[numberIndex])
-                    {
-                        this.ShiftArrayRight(_integerArray, _stringArray, _index + _tempInd, numberIndex);
-                        _tempInd++;
-                    }
-                    else if(_integerArray[_index] > _integerArray[numberIndex])
-                    {
-                        this.ShiftArrayRight(_integerArray, _stringArray, _index, numberIndex);
-                        _tempInd = 1;
-                    }
-                }
-
-                if(_tempInd > 1)
-                {
-                    _index = _index + _tempInd;
-                    continue;
-                }
-
-                _index++;
+                _temp1 = _items[index] = new Item();
+                _sorted[index] = new Item();
+                string[] _input = Console.ReadLine().Split(' ');
+                ++_count[_temp1.Number = int.Parse(_input[0])];
             }
 
-            System.Console.WriteLine("Checking shift");
-            Display(_integerArray, _stringArray);
+            //Console.WriteLine("Hle");
+            for (int index = _half; index < _size; ++index)
+            {
+                _temp1 = _items[index] = new Item();
+                _sorted[index] = new Item();
+                string[] _input = Console.ReadLine().Split(' ');
+                ++_count[_temp1.Number = int.Parse(_input[0])];
+                _temp1.Word = new StringBuilder(_input[1]);
+                //_temp1.Word = _temp1.Word.trim
+            }
+
+            for (int index = 1; index < 100; ++index)
+            {
+                _count[index] = _count[index] + _count[index - 1];
+            }
+
+            for (int index = _size - 1; index >= _half; --index)
+            {
+                _temp1 = _items[index];
+
+                _sorted[--_count[_temp1.Number]] = _temp1;
+            }
+
+            StringBuilder sout = new StringBuilder("");
+
+            foreach (Item item in _sorted)
+            {
+                sout.Append(item.Word + " ");
+            }
+            Console.WriteLine(sout);
         }
 
-        private void PopulateArray(int[] integerArray, string[] stringArray)
+        public class Item // Cannot be made into a parameter if inner class if private
         {
-            for(int index = 0; index < integerArray.Length; index++)
-            {
-                string[] _inputs = System.Console.ReadLine().Split(' ');
-                integerArray[index] = int.Parse(_inputs[0]);
-                stringArray[index] = _inputs[1];
-            }
-        }
+            public int Number { get; set; }
+            public StringBuilder Word { get; set; }
 
-        /// <summary>
-        /// Using this method (function) we can create a position and start to work from there.
-        /// This will return the location of the first position (if there are multiple copies) of the smallest value. 
-        /// </summary>
-        /// <param name="array"></param>
-        /// <returns></returns>
-        private int LocateTheSmallestNumber(int[] array)
-        {
-            int _location = 0;
-
-            for(int index = 0; index < array.Length; index++)
+            public  Item()
             {
-                if(array[index] < array[_location])
-                {
-                    _location = index;
-                }
+                //
+                this.Word = new StringBuilder("-");
             }
 
-            return _location;
-        }
-
-        private void ShiftArrayRight(int[] integerArray, string[] stringArray, int beginning, int ending)
-        {
-            int _temp = integerArray[ending];
-            string _tempString = stringArray[ending];
-
-            for(int index = ending; index > beginning; index--)
+            public Item(int number, StringBuilder word)
             {
-                int _number1 = integerArray[index - 1];
-                string _string1 = stringArray[index - 1];
-
-                integerArray[index] = _number1;
-                stringArray[index] = _string1;
-            }
-
-            integerArray[beginning] = _temp;
-            stringArray[beginning] = _tempString;
-        }
-
-        public void Display(int[] integerArray, string[] stringArray)
-        {
-            for(int index = 0; index < integerArray.Length; index++)
-            {
-                System.Console.Write(integerArray[index] + " ");
-            }
-
-            System.Console.WriteLine("");
-
-            for (int index = 0; index < stringArray.Length; index++)
-            {
-                System.Console.Write(stringArray[index] + " ");
+                this.Number = number;
+                this.Word = word;
             }
         }
     }

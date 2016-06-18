@@ -11,7 +11,7 @@ namespace Algorithms
         static void Main(string[] args)
         {
             //GridsearchHRimplementation gridsearch = new GridsearchHRimplementation();
-            //PairsHRsearchcs paris = new PairsHRsearchcs();
+            PairsHRsearchcs paris = new PairsHRsearchcs();
             //LongFactorialHRimplementation imp = new LongFactorialHRimplementation();
             //EncrytionHRimplemenation encrytion = new EncrytionHRimplemenation();
             //SnakeLaddHRgraphtheory snakesNladders = new SnakeLaddHRgraphtheory();
@@ -43,8 +43,9 @@ namespace Algorithms
             SortHR.AlmostSort _alomost = new SortHR.AlmostSort();
             _alomost.Execute(_array);*/
 
-            SortHR.FullCountingSort _fullcountsort = new SortHR.FullCountingSort();
-            _fullcountsort.Execute();
+            //SortHR.FullCountingSort _fullcountsort = new SortHR.FullCountingSort();
+            //SortHR.FullCountingSortWithClasses _fullcountsort = new SortHR.FullCountingSortWithClasses();
+            //_fullcountsort.Execute();
 
             System.Console.Read();
         }

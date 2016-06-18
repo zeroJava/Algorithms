@@ -61,11 +61,15 @@
     <Compile Include="SortHR\AlmostSort.cs" />
     <Compile Include="SortHR\DevideAndConquer.cs" />
     <Compile Include="SortHR\FullCountingSort.cs" />
+    <Compile Include="SortHR\FullCountingSortWithClasses.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="SortHR\InputFullCount.txt" />
+    <Content Include="SortHR\OutputFullCount.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
