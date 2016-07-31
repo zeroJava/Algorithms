@@ -62,6 +62,7 @@
     <Compile Include="SortHR\DevideAndConquer.cs" />
     <Compile Include="SortHR\FullCountingSort.cs" />
     <Compile Include="SortHR\FullCountingSortWithClasses.cs" />
+    <Compile Include="SortHR\SherlockPairs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
