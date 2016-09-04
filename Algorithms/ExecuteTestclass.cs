@@ -47,10 +47,13 @@ namespace Algorithms
             //SortHR.FullCountingSortWithClasses _fullcountsort = new SortHR.FullCountingSortWithClasses();
             //_fullcountsort.Execute();
 
-            SortHR.SherlockPairs _sherlock = new SortHR.SherlockPairs();
+            /*SortHR.SherlockPairs _sherlock = new SortHR.SherlockPairs();
             //var array = new int[10] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
             var array = new int[5] { 1, 1, 5, 5, 1};
-            System.Console.WriteLine(_sherlock.CountPairsMath(array));
+            System.Console.WriteLine(_sherlock.CountPairsMath(array));*/
+
+            SortHR.CountingSort1 _countinSort1 = new SortHR.CountingSort1();
+            _countinSort1.Execute("5 50 0 7 50 1 1 1");
 
             System.Console.Read();
         }
