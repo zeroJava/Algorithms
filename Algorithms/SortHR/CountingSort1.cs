@@ -23,7 +23,7 @@ namespace Algorithms.SortHR
 
         private void CountingSortOneAlgorithm(List<int> list, int[] array)
         {
-            for (int index = 0; index < list.Count; index++)
+            for (int index = 0; index < array.Length; index++)
             {
                 array[index] = list.FindAll(x => x == index).Count();
                 System.Console.Write(array[index] + " ");
