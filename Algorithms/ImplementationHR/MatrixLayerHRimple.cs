@@ -11,6 +11,8 @@ namespace Algorithms.ImplementationHR
         private int[,] _matrix { set; get; }
         private int _rotation { set; get; }
 
+        // TODO work on this algorithm after finishing 
+
         public MatrixLayerHRimple(int row, int column, int rotation)
         {
             _matrix = new int[row, column];

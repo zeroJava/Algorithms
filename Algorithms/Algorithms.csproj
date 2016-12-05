@@ -47,6 +47,7 @@
     <Compile Include="ImplementationHR\Cavitymap.cs" />
     <Compile Include="ImplementationHR\CeaserCipher.cs" />
     <Compile Include="ImplementationHR\CutTheSticks.cs" />
+    <Compile Include="ImplementationHR\EmaSupercomputer.cs" />
     <Compile Include="ImplementationHR\EncrytionHRimplementation.cs" />
     <Compile Include="ExecuteTestclass.cs" />
     <Compile Include="ImplementationHR\GridsearchHRimplementation.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="SortHR\DevideAndConquer.cs" />
     <Compile Include="SortHR\FullCountingSort.cs" />
     <Compile Include="SortHR\FullCountingSortWithClasses.cs" />
+    <Compile Include="SortHR\QuickSortInPlace.cs" />
     <Compile Include="SortHR\SherlockPairs.cs" />
   </ItemGroup>
   <ItemGroup>
