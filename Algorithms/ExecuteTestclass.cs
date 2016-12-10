@@ -55,8 +55,11 @@ namespace Algorithms
             /*SortHR.CountingSort1 _countinSort1 = new SortHR.CountingSort1();
             _countinSort1.Execute("5 50 0 7 50 1 1 1");*/
 
-            SortHR.QuickSortInPlace _quickSortinPlace = new SortHR.QuickSortInPlace();
-            _quickSortinPlace.Execute("5 50 0 7 50 1 1 1");
+            /*SortHR.QuickSortInPlace _quickSortinPlace = new SortHR.QuickSortInPlace();
+            _quickSortinPlace.Execute("5 50 0 7 50 1 1 1");*/
+
+            ImplementationHR.EmaSupercomputer _supercomputer = new ImplementationHR.EmaSupercomputer();
+            _supercomputer.Execute();
 
             System.Console.Read();
         }
