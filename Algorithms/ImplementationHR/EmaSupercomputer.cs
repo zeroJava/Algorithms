@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace Algorithms.ImplementationHR
 {
-    public class EmaSupercomputer
+    public class EmaSupercomputerOverlapInc
     {
-        private IList<int> _number;
-
-        public EmaSupercomputer()
+        public EmaSupercomputerOverlapInc()
         {
-            _number = new List<int>();
+            //
         }
 
         public void Execute()
@@ -20,10 +18,10 @@ namespace Algorithms.ImplementationHR
             int row = int.Parse(System.Console.ReadLine());
             int column = int.Parse(System.Console.ReadLine());
 
-            string[,] matrix = new string[5, 5];
+            string[,] matrix = new string[row, column];
             IntialiseMatrix(matrix);
             AlgorithmEma(matrix);
-            System.Console.WriteLine("Vertical: " + ReachedEdgeVertical(matrix, 5, 0) + " Horizontal: " + ReachedEdgeHorizontal(matrix, 5, 1));
+            //System.Console.WriteLine("Vertical: " + ReachedEdgeVertical(matrix, 5, 0) + " Horizontal: " + ReachedEdgeHorizontal(matrix, 5, 1));
             DisplayMatrix(matrix);
         }
 
@@ -37,7 +35,7 @@ namespace Algorithms.ImplementationHR
 
         private void IntialiseColumn(string[,] matrix, int row)
         {
-            System.Console.WriteLine("Enter string of G and B");
+            //System.Console.WriteLine("Enter string of G and B");
             char[] inputValue = System.Console.ReadLine().ToCharArray();
             for (int column = 0; column < matrix.GetLength(1); column++)
             {
@@ -64,6 +62,8 @@ namespace Algorithms.ImplementationHR
                 System.Console.WriteLine(0);
                 return;
             }
+
+            IList<int> list = new List<int>();
                 
             for (int rows = 1; rows < matrix.GetLength(0) - 1; rows++)
             {
@@ -77,12 +77,38 @@ namespace Algorithms.ImplementationHR
 
                     ScanSurroundingBlocks(matrix, rows, columns, out size, out badBlock);
 
-                    if (badBlock > 2)
+                    if (badBlock > 1 && badBlock != 4)
                         continue;
 
-                    System.Console.WriteLine("Path: " + CreatePlus(matrix, rows, columns, size));
+                    if (size == 0)
+                    {
+                        if (CheckingForOverlaps(matrix, rows, columns, 1))
+                            continue;
+                    }
+
+                    if (CheckingForOverlaps(matrix, rows, columns, size))
+                        continue;
+
+                    list.Add(CreatePlus(matrix, rows, columns, size));
                 }
             }
+
+            System.Console.WriteLine(MultipleOfAll(list));
+        }
+
+        private int MultipleOfAll(IList<int> list)
+        {
+            if (list.Count == 0)
+                return 0;
+
+            int count = 1;
+
+            for (int index = 0; index < list.Count; index++)
+            {
+                count = count * list[index];
+            }
+
+            return count;
         }
 
         private void ScanSurroundingBlocks(string[,] matrix, int row, int column, out int size, out int badBlocks)
@@ -91,28 +117,28 @@ namespace Algorithms.ImplementationHR
             badBlocks = 0;
             int[] array = new int[4];
 
-            array[0] = CountBlockVertical(matrix, row, column, "north"); // north
-            array[1] = countBlockHorizontal(matrix, row, column, "east"); // east
-            array[2] = CountBlockVertical(matrix, row, column, "south"); // south
-            array[3] = countBlockHorizontal(matrix, row, column, "west"); // west
+            array[0] = ScanBlockVertical(matrix, row, column, "north"); // north
+            array[1] = ScanBlockHorizontal(matrix, row, column, "east"); // east
+            array[2] = ScanBlockVertical(matrix, row, column, "south"); // south
+            array[3] = ScanBlockHorizontal(matrix, row, column, "west"); // west
 
             size = array.Min();
             badBlocks = array.Where(x => x == 0).Count();
-            System.Console.WriteLine("ro: " + row + " col: " + column + " max: " + badBlocks);
+            //System.Console.WriteLine("ro: " + row + " col: " + column + " max: " + badBlocks);
         }
 
         private int CreatePlus(string[,] matrix, int row, int column, int size)
         {
-            int north = CountingNorthenPath(matrix, row, column, size);
-            int east = CountingEasternPath(matrix, row, column, size);
-            int south = CountSouthernPath(matrix, row, column, size);
-            int west = CountWesternPath(matrix, row, column, size);
-            int central = 1;
+            int north = CountingNorthenBlocks(matrix, row, column, size);
+            int east = CountingEasternBlocks(matrix, row, column, size);
+            int south = CountSouthernBlocks(matrix, row, column, size);
+            int west = CountWesternBlocks(matrix, row, column, size);
+            int central = CountCenteralBlock(matrix, row, column, size);
 
             return north + east + south + west + central;
         }
 
-        private int CountingNorthenPath(string[,] matrix, int row, int column, int size)
+        private int CountingNorthenBlocks(string[,] matrix, int row, int column, int size)
         {
             int limit = row - size;
             int count = 0;
@@ -120,14 +146,14 @@ namespace Algorithms.ImplementationHR
             for(int currentrow = row - 1; currentrow >= limit; currentrow--)
             {
                 matrix[currentrow, column] = "S";
-                OverlapParameterFlagNorth(matrix, currentrow, column, limit);
+                MarkNorthenBlocks(matrix, currentrow, column, limit);
                 count++;
             }
 
             return count;
         }
 
-        private int CountingEasternPath(string[,] matrix, int row, int column, int size)
+        private int CountingEasternBlocks(string[,] matrix, int row, int column, int size)
         {
             int limit = column + size;
             int count = 0;
@@ -135,14 +161,14 @@ namespace Algorithms.ImplementationHR
             for (int currentcolumn = column + 1; currentcolumn <= limit; currentcolumn++)
             {
                 matrix[row, currentcolumn] = "S";
-                OverlapParameterFlagEast(matrix, row, currentcolumn, limit);
+                MarkEasternBlocks(matrix, row, currentcolumn, limit);
                 count++;
             }
 
             return count;
         }
 
-        private int CountSouthernPath(string[,] matrix, int row, int column, int size)
+        private int CountSouthernBlocks(string[,] matrix, int row, int column, int size)
         {
             int limit = row + size;
             int count = 0;
@@ -150,14 +176,14 @@ namespace Algorithms.ImplementationHR
             for (int currentrow = row + 1; currentrow <= limit; currentrow++)
             {
                 matrix[currentrow, column] = "S";
-                OverlapParameterFlagSouth(matrix, currentrow, column, limit);
+                MarkSouthernBlocks(matrix, currentrow, column, limit);
                 count++;
             }
 
             return count;
         }
 
-        private int CountWesternPath(string[,] matrix, int row, int column, int size)
+        private int CountWesternBlocks(string[,] matrix, int row, int column, int size)
         {
             int limit = column - size;
             int count = 0;
@@ -165,14 +191,47 @@ namespace Algorithms.ImplementationHR
             for (int currentcolumn = column - 1; currentcolumn >= limit; currentcolumn--)
             {
                 matrix[row, currentcolumn] = "S";
-                OverlapParameterFlagWest(matrix, row, currentcolumn, limit);
+                MarkWesternBlocks(matrix, row, currentcolumn, limit);
                 count++;
             }
 
             return count;
         }
 
-        private void OverlapParameterFlagNorth(string[,] matrix, int row, int column, int limit)
+        private int CountCenteralBlock(string[,] matrix, int row, int column, int size)
+        {
+            MarksCentralBlock(matrix, row, column, 0);
+            return 1;
+        }
+
+        private void MarksCentralBlock(string[,] matrix, int row, int column, int limit)
+        {
+            if (!ReachedEdgeVertical(matrix, row, 0)) // north
+                matrix[row - 1, column] = "*";
+
+            if (!ReachedEdgeDiaganol(matrix, row, column, "ne")) // north east
+                matrix[row - 1, column + 1] = "*";
+
+            if (!ReachedEdgeHorizontal(matrix, column, 1)) //east
+                matrix[row, column + 1] = ("*");
+
+            if (!ReachedEdgeDiaganol(matrix, row, column, "se")) // south east
+                matrix[row + 1, column + 1] = "*";
+
+            if (!ReachedEdgeVertical(matrix, row, 1)) // south
+                matrix[row + 1, column] = "*";
+
+            if (!ReachedEdgeDiaganol(matrix, row, column, "sw")) // south west
+                matrix[row + 1, column - 1] = "*";
+
+            if (!ReachedEdgeHorizontal(matrix, column, 0)) //west
+                matrix[row, column - 1] = ("*");
+
+            if (!ReachedEdgeDiaganol(matrix, row, column, "nw")) // north west
+                matrix[row - 1, column - 1] = "*";
+        }
+
+        private void MarkNorthenBlocks(string[,] matrix, int row, int column, int limit)
         {
             if (!ReachedEdgeHorizontal(matrix, column, 1)) // eastern part
                 matrix[row, column + 1] = "*";
@@ -193,7 +252,7 @@ namespace Algorithms.ImplementationHR
             }
         }
 
-        private void OverlapParameterFlagEast(string[,] matrix, int row, int column, int limit)
+        private void MarkEasternBlocks(string[,] matrix, int row, int column, int limit)
         {
             if (!ReachedEdgeVertical(matrix, row, 0)) // north
                 matrix[row - 1, column] = "*";
@@ -204,7 +263,7 @@ namespace Algorithms.ImplementationHR
             if (column == limit)
             {
                 if (!ReachedEdgeHorizontal(matrix, column, 1)) //east
-                    matrix[row, column + 1].Equals("*");
+                    matrix[row, column + 1] = ("*");
 
                 if (!ReachedEdgeDiaganol(matrix, row, column, "ne")) // north east
                     matrix[row - 1, column + 1] = "*";
@@ -214,7 +273,7 @@ namespace Algorithms.ImplementationHR
             }
         }
 
-        private void OverlapParameterFlagSouth(string[,] matrix, int row, int column, int limit)
+        private void MarkSouthernBlocks(string[,] matrix, int row, int column, int limit)
         {
             if (!ReachedEdgeHorizontal(matrix, column, 1)) // eastern part
                 matrix[row, column + 1] = "*";
@@ -235,7 +294,7 @@ namespace Algorithms.ImplementationHR
             }
         }
 
-        private void OverlapParameterFlagWest(string[,] matrix, int row, int column, int limit)
+        private void MarkWesternBlocks(string[,] matrix, int row, int column, int limit)
         {
             if (!ReachedEdgeVertical(matrix, row, 0)) // north
                 matrix[row - 1, column] = "*";
@@ -246,7 +305,7 @@ namespace Algorithms.ImplementationHR
             if (column == limit)
             {
                 if (!ReachedEdgeHorizontal(matrix, column, 0)) //west
-                    matrix[row, column - 1].Equals("*");
+                    matrix[row, column - 1] = ("*");
 
                 if (!ReachedEdgeDiaganol(matrix, row, column, "nw")) // north west
                     matrix[row - 1, column - 1] = "*";
@@ -256,7 +315,7 @@ namespace Algorithms.ImplementationHR
             }
         }
 
-        private int CountBlockVertical(string[,] matrix, int row, int column, string direction)
+        private int ScanBlockVertical(string[,] matrix, int row, int column, string direction)
         {
             int count = 0;
             int currentRowPosition = row;
@@ -294,7 +353,7 @@ namespace Algorithms.ImplementationHR
             return count - 1;
         }
 
-        private int countBlockHorizontal(string[,] matrix, int row, int column, string direction)
+        private int ScanBlockHorizontal(string[,] matrix, int row, int column, string direction)
         {
             int count = 0;
             int currentColumnPosition = column;
@@ -332,27 +391,27 @@ namespace Algorithms.ImplementationHR
             return count - 1;
         }
 
-        private bool ReachedEdgeVertical(string[,] matrix, int position, int direction)
+        private bool ReachedEdgeVertical(string[,] matrix, int row, int direction)
         {
             if (direction <= 0)
             {
-                return position - 1 <= -1 ? true : false;
+                return row - 1 <= -1 ? true : false;
             }
             else
             {
-                return position + 1 >= matrix.GetLength(0) ? true : false;
+                return row + 1 >= matrix.GetLength(0) ? true : false;
             }
         }
 
-        private bool ReachedEdgeHorizontal(string[,] matrix, int position, int direction)
+        private bool ReachedEdgeHorizontal(string[,] matrix, int column, int direction)
         {
             if (direction <= 0)
             {
-                return position - 1 <= -1 ? true : false;
+                return column - 1 <= -1 ? true : false;
             }
             else
             {
-                return position + 1 >= matrix.GetLength(1) ? true : false;
+                return column + 1 >= matrix.GetLength(1) ? true : false;
             }
         }
 
@@ -360,20 +419,42 @@ namespace Algorithms.ImplementationHR
         {
             if (direction.Equals("ne"))
             {
-                return rowPosition - 1 <= -1 && columnPoistion + 1 >= matrix.GetLength(1) ? true : false;
+                return rowPosition - 1 <= -1 || columnPoistion + 1 >= matrix.GetLength(1) ? true : false;
             }
             else if (direction.Equals("se"))
             {
-                return rowPosition + 1 >= matrix.GetLength(0) && columnPoistion + 1 >= matrix.GetLength(1) ? true : false;
+                return rowPosition + 1 >= matrix.GetLength(0) || columnPoistion + 1 >= matrix.GetLength(1) ? true : false;
             }
             else if (direction.Equals("sw"))
             {
-                return rowPosition + 1 >= matrix.GetLength(0) && columnPoistion - 1 <= matrix.GetLength(1) ? true : false;
+                return rowPosition + 1 >= matrix.GetLength(0) || columnPoistion - 1 <= -1 ? true : false;
             }
             else //if (direction.Equals("nw"))
             {
-                return rowPosition - 1 <= -1 && columnPoistion - 1 <= -1 ? true : false;
+                return rowPosition - 1 <= -1 || columnPoistion - 1 <= -1 ? true : false;
             }
+        }
+
+        private bool CheckingForOverlaps(string[,] matrix, int row, int column, int size)
+        {
+            if (BlockOverLapped(matrix, row - size, column)) // north
+                return true;
+
+            if (BlockOverLapped(matrix, row, column + size)) // east
+                return true;
+
+            if (BlockOverLapped(matrix, row + size, column)) // south
+                return true;
+
+            if (BlockOverLapped(matrix, row, column - size)) // west
+                return true;
+               
+            return false;
+        }
+
+        private bool BlockOverLapped(string[,] matrix, int row, int column)
+        {
+            return matrix[row, column].Equals("*");
         }
     }
 }
