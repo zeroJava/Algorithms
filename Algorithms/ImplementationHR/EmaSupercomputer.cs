@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Algorithms.ImplementationHR
 {
+    [Obsolete("This algorithm is incorrect")]
     public class EmaSupercomputerOverlapInc
     {
         public EmaSupercomputerOverlapInc()

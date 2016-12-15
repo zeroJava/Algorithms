@@ -62,7 +62,7 @@ namespace Algorithms
             _supercomputer.Execute();*/
 
             ImplementationHR.EmaSuper _ema = new ImplementationHR.EmaSuper();
-            _ema.Execute();
+            _ema.Execute3();
 
             System.Console.Read();
         }

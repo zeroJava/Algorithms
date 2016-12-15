@@ -13,28 +13,71 @@ namespace Algorithms.ImplementationHR
             //
         }
 
-        public void Execute()
+        public void Execute3()
         {
             int row = int.Parse(System.Console.ReadLine());
             int column = int.Parse(System.Console.ReadLine());
 
             string[,] matrix = new string[row, column];
             IntialiseMatrix(matrix);
-            List<int> pluses = new List<int>();
+            IList<int> recordOfResults = new List<int>();
+            BigSize(matrix, recordOfResults);
+            System.Console.WriteLine(recordOfResults.Max());
+        }
 
-            // find the largest N E S W
-            int size = FindLargestSize(matrix);
-            //pluses = CountNumberOfPlus(matrix, size);
-
-            //int pluseCount = 0;
-            while (pluses.Count < 2)
+        private void BigSize(string[,] matrix, IList<int> list)
+        {
+            for (int size = 0; size < 8; size++)
             {
-                pluses.AddRange(CountNumberOfPlus(matrix, size));
-                size--;
-                //pluseCount = pluses.Count();
-            }
+                for (int row = 1; row < matrix.GetLength(0) - 1; row++)
+                {
+                    for (int column = 1; column < matrix.GetLength(1) - 1; column++)
+                    {
+                        string[,] matrixCloned = (string[,])matrix.Clone();
 
-            System.Console.WriteLine(MultiplyAll(pluses));
+                        if (!WithinLimit(matrixCloned, row, column, size))
+                            continue;
+
+                        int north = CountNorth(matrixCloned, row, column, size);
+                        int east = CountEast(matrixCloned, row, column, size);
+                        int south = CountSouth(matrixCloned, row, column, size);
+                        int west = countWest(matrixCloned, row, column, size);
+                        int central = countCentral(matrixCloned, row, column);
+
+                        int total = (north + east + south + west + central);
+                        LittleSize(matrixCloned, list, total);                     
+                    }
+                }
+            }
+        }
+
+        private void LittleSize(string[,] matrix, IList<int> list, int number1)
+        {
+            for (int size = 0; size < 8; size++)
+            {
+                for (int row = 1; row < matrix.GetLength(0); row++)
+                {
+                    for (int column = 1; column < matrix.GetLength(1); column++)
+                    {
+                        string[,] matrixCloned = (string[,])matrix.Clone();
+                        IList<int> templist = new List<int>();
+
+                        if (!WithinLimit(matrixCloned, row, column, size))
+                            continue;
+
+                        int north = CountNorth(matrixCloned, row, column, size);
+                        int east = CountEast(matrixCloned, row, column, size);
+                        int south = CountSouth(matrixCloned, row, column, size);
+                        int west = countWest(matrixCloned, row, column, size);
+                        int central = countCentral(matrixCloned, row, column);
+
+                        templist.Add(number1);
+                        templist.Add(north + east + south + west + central);
+
+                        list.Add(MultiplyAll(templist));
+                    }
+                }
+            }
         }
 
         private void IntialiseMatrix(string[,] matrix)
@@ -52,43 +95,6 @@ namespace Algorithms.ImplementationHR
             {
                 matrix[row, column] = inputValue[column].ToString(); ;
             }
-        }
-
-        private int FindLargestSize(string[,] matrix)
-        {
-            int size = 0;
-            int finalSize = size;
-            string[,] matrixClone = (string[,]) matrix.Clone();
-
-            while (size < 8)
-            {
-                if (!ScanningMatrix(matrix, size))
-                {
-                    size++;
-                    continue;
-                }
-
-                finalSize = size;
-                size++;
-            }
-
-            return finalSize;
-        }
-
-        private bool ScanningMatrix(string[,] matrix, int size)
-        {
-            bool correctsize = false;
-
-            for (int row = 1; row < matrix.GetLength(0) - 1; row++)
-            {
-                for (int column = 1; column < matrix.GetLength(1) - 1; column++)
-                {
-                    if (WithinLimit(matrix, row, column, size))
-                        correctsize = true;
-                }
-            }
-
-            return correctsize;
         }
 
         private bool WithinLimit(string[,] matrix, int row, int column, int size)
@@ -195,31 +201,6 @@ namespace Algorithms.ImplementationHR
             }
 
             return false;
-        }
-
-        private IList<int> CountNumberOfPlus(string[,] matrix, int size)
-        {
-            IList<int> list = new List<int>();
-            //list.Add(1);
-
-            for (int row = 1; row < matrix.GetLength(0) - 1; row++)
-            {
-                for (int column = 1; column < matrix.GetLength(1) - 1; column++)
-                {
-                    if (!WithinLimit(matrix, row, column, size))
-                        continue;
-
-                    int north = CountNorth(matrix, row, column, size);
-                    int east = CountEast(matrix, row, column, size);
-                    int south = CountSouth(matrix, row, column, size);
-                    int west = countWest(matrix, row, column, size);
-                    int central = countCentral(matrix, row, column);
-
-                    list.Add((north + east + south + west + central));
-                }
-            }
-
-            return list;
         }
 
         private int CountNorth(string[,] matrix, int row, int column, int size)
