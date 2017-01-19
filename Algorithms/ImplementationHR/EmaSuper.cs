@@ -114,91 +114,123 @@ namespace Algorithms.ImplementationHR
             if (direction.Equals("n"))
             {
                 starpoint = row - 1;
-
-                if (endpoint <= -1 || starpoint <= -1)
-                    return false;
-
-                while (starpoint >= endpoint)
-                {
-                    if (!matrix[starpoint, column].Equals("G"))
-                    {
-                        count = 0;
-                        break;
-                    }
-
-                    count++;
-                    starpoint--;
-                }
-
-                if (count == size)
-                    return true;
+                return CheckingBlocksPlusSizeNorth(matrix, row, column, endpoint, size, count, starpoint);
             }
             else if (direction.Equals("e"))
             {
                 starpoint = column + 1;
-
-                if (endpoint >= matrix.GetLength(1) || starpoint >= matrix.GetLength(1))
-                    return false;
-
-                while (starpoint <= endpoint)
-                {
-                    if (!matrix[row, starpoint].Equals("G"))
-                    {
-                        count = 0;
-                        break;
-                    }
-
-                    count++;
-                    starpoint++;
-                }
-
-                if (count == size)
-                    return true;
+                return CheckingBlocksPlusSizeEast(matrix, row, column, endpoint, size, count, starpoint);
             }
             else if (direction.Equals("s"))
             {
                 starpoint = row + 1;
-
-                if (endpoint >= matrix.GetLength(0) || starpoint >= matrix.GetLength(0))
-                    return false;
-
-                while (starpoint <= endpoint)
-                {
-                    if (!matrix[starpoint, column].Equals("G"))
-                    {
-                        count = 0;
-                        break;
-                    }
-
-                    count++;
-                    starpoint++;
-                }
-
-                if (count == size)
-                    return true;
+                return CheckingBlocksPlusSizeSouth(matrix, row, column, endpoint, size, count, starpoint);
             }
             else if (direction.Equals("w"))
             {
                 starpoint = column - 1;
+                return CheckingBlocksPlusSizeWest(matrix, row, column, endpoint, size, count, starpoint);
+            }
 
-                if (endpoint <= -1 || starpoint <= -1)
-                    return false;
+            return false;
+        }
 
-                while (starpoint >= endpoint)
+        private bool CheckingBlocksPlusSizeNorth(string[,] matrix, int row, int column, int endpoint, int size, int count, int starpoint)
+        {
+            starpoint = row - 1;
+
+            if (endpoint <= -1 || starpoint <= -1)
+                return false;
+
+            while (starpoint >= endpoint)
+            {
+                if (!matrix[starpoint, column].Equals("G"))
                 {
-                    if (!matrix[row, starpoint].Equals("G"))
-                    {
-                        count = 0;
-                        break;
-                    }
-
-                    count++;
-                    starpoint--;
+                    count = 0;
+                    break;
                 }
 
-                if (count == size)
-                    return true;
+                count++;
+                starpoint--;
             }
+
+            if (count == size)
+                return true;
+
+            return false; // put here for safety
+        }
+
+        private bool CheckingBlocksPlusSizeEast(string[,] matrix, int row, int column, int endpoint, int size, int count, int starpoint)
+        {
+            starpoint = column + 1;
+
+            if (endpoint >= matrix.GetLength(1) || starpoint >= matrix.GetLength(1))
+                return false;
+
+            while (starpoint <= endpoint)
+            {
+                if (!matrix[row, starpoint].Equals("G"))
+                {
+                    count = 0;
+                    break;
+                }
+
+                count++;
+                starpoint++;
+            }
+
+            if (count == size)
+                return true;
+
+            return false;
+        }
+
+        private bool CheckingBlocksPlusSizeSouth(string[,] matrix, int row, int column, int endpoint, int size, int count, int starpoint)
+        {
+            starpoint = row + 1;
+
+            if (endpoint >= matrix.GetLength(0) || starpoint >= matrix.GetLength(0))
+                return false;
+
+            while (starpoint <= endpoint)
+            {
+                if (!matrix[starpoint, column].Equals("G"))
+                {
+                    count = 0;
+                    break;
+                }
+
+                count++;
+                starpoint++;
+            }
+
+            if (count == size)
+                return true;
+
+            return false;
+        }
+
+        private bool CheckingBlocksPlusSizeWest(string[,] matrix, int row, int column, int endpoint, int size, int count, int starpoint)
+        {
+            starpoint = column - 1;
+
+            if (endpoint <= -1 || starpoint <= -1)
+                return false;
+
+            while (starpoint >= endpoint)
+            {
+                if (!matrix[row, starpoint].Equals("G"))
+                {
+                    count = 0;
+                    break;
+                }
+
+                count++;
+                starpoint--;
+            }
+
+            if (count == size)
+                return true;
 
             return false;
         }
