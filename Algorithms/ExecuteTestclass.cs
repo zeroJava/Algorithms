@@ -61,8 +61,11 @@ namespace Algorithms
             /*ImplementationHR.EmaSupercomputerOverlapInc _supercomputer = new ImplementationHR.EmaSupercomputerOverlapInc();
             _supercomputer.Execute();*/
 
-            ImplementationHR.EmaSuper _ema = new ImplementationHR.EmaSuper();
-            _ema.Execute3();
+            /*ImplementationHR.EmaSuper _ema = new ImplementationHR.EmaSuper();
+            _ema.Execute3();*/
+
+            ImplementationHR.MatrixLayerHRimple _matrixLayer = new ImplementationHR.MatrixLayerHRimple(3, 6, 1);
+            _matrixLayer.Execute();
 
             System.Console.Read();
         }
