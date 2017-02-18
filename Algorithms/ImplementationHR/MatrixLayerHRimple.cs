@@ -22,12 +22,10 @@ namespace Algorithms.ImplementationHR
         {
             InitialiseMatrix();
             _leasetPossibleLayer = Convert.ToInt32(_matrix.GetLength(0) <= _matrix.GetLength(1) ? Math.Ceiling((_matrix.GetLength(0) / 2.00)) : Math.Ceiling(_matrix.GetLength(1) / 2.00));
-            //System.Console.WriteLine(_leasetPossibleLayer);
+            System.Console.WriteLine(_leasetPossibleLayer);
 
-            for (int cycle = 0; cycle < _rotation; cycle++)
-            {
-                RotateMatrix();
-            }
+            /*for (int cycle = 0; cycle < _rotation; cycle++) { RotateMatrix(); }*/
+            RotateMatrix();
             DisplayMatrix();
         }
 
@@ -51,8 +49,6 @@ namespace Algorithms.ImplementationHR
                 
                 sectionsOfMatrix.Add(0, RetrieveNorthSectionMatrix(layer, layer,  (_matrix.GetLength(1)) - layer));
                 sectionsOfMatrix.Add(1, RetrieveEasternSectionMatrix(layer + 1, (_matrix.GetLength(1) - 1) - layer,  _matrix.GetLength(0) - layer));
-                sectionsOfMatrix.Add(2, RetrieveSouthernSectionMatrix((_matrix.GetLength(0) - 1) - layer, (_matrix.GetLength(1) - 2) - layer, -1 + layer));
-                sectionsOfMatrix.Add(3, RetrieveWesternSectionMatrix((_matrix.GetLength(0) - 2) - layer, layer, layer));
 
                 if (sectionsOfMatrix[0].Count <= 1 || sectionsOfMatrix[1].Count == 0)
                 {
@@ -67,7 +63,10 @@ namespace Algorithms.ImplementationHR
                 }
                 else
                 {
-                    this.RotateMultipleSection(sectionsOfMatrix, layer);
+                    sectionsOfMatrix.Add(2, RetrieveSouthernSectionMatrix((_matrix.GetLength(0) - 1) - layer, (_matrix.GetLength(1) - 2) - layer, -1 + layer));
+                    sectionsOfMatrix.Add(3, RetrieveWesternSectionMatrix((_matrix.GetLength(0) - 2) - layer, layer, layer));
+
+                    RotateMultipleSection(sectionsOfMatrix, layer);
                 }
             }
         }
@@ -75,7 +74,6 @@ namespace Algorithms.ImplementationHR
         private IList<int> RetrieveNorthSectionMatrix(int rowPosition, int columnPosition, int limit)
         {
             IList<int> tempArray = new List<int>();
-            //int listColumnCount = 0;
 
             if (columnPosition >= limit)
                 return tempArray;
@@ -83,7 +81,6 @@ namespace Algorithms.ImplementationHR
             for (int column = columnPosition; column < limit; column++)
             {
                 tempArray.Add(_matrix[rowPosition, column]);
-                //listColumnCount++;
             }
 
             return tempArray;
@@ -92,7 +89,6 @@ namespace Algorithms.ImplementationHR
         private IList<int> RetrieveEasternSectionMatrix(int rowPosition, int columnPosition, int limit)
         {
             IList<int> tempArray = new List<int>();
-            //int listArrayRowCount = 0;
 
             if (rowPosition >= limit)
                 return tempArray;
@@ -100,7 +96,6 @@ namespace Algorithms.ImplementationHR
             for (int row = rowPosition; row < limit; row++)
             {
                 tempArray.Add(_matrix[row, columnPosition]);
-                //listArrayRowCount++;
             }
 
             return tempArray;
@@ -109,7 +104,6 @@ namespace Algorithms.ImplementationHR
         private IList<int> RetrieveSouthernSectionMatrix(int rowPosition, int columnPosition, int limit)
         {
             IList<int> tempArray = new List<int>();
-            //int listArrayRowCount = 0;
 
             if (columnPosition <= limit)
                 return tempArray;
@@ -117,7 +111,6 @@ namespace Algorithms.ImplementationHR
             for (int column = columnPosition; column > limit; column--)
             {
                 tempArray.Add(_matrix[rowPosition, column]);
-                //listArrayRowCount++;
             }
 
             return tempArray;
@@ -126,7 +119,6 @@ namespace Algorithms.ImplementationHR
         private IList<int> RetrieveWesternSectionMatrix(int rowPosition, int columnPosition, int limit)
         {
             IList<int> tempArray = new List<int>();
-            //int listArrayRowCount = 0;
 
             if (rowPosition <= limit)
                 return tempArray;
@@ -134,7 +126,6 @@ namespace Algorithms.ImplementationHR
             for (int row = rowPosition; row > limit; row--)
             {
                 tempArray.Add(_matrix[row, columnPosition]);
-                //listArrayRowCount++;
             }
 
             return tempArray;
@@ -150,14 +141,22 @@ namespace Algorithms.ImplementationHR
             if (sectionType.Equals("north"))
             {
                 IList<int> extractedLayer = extractionSection[0];
-                this.Rotate(extractedLayer);
+
+                if (extractedLayer.Count == 1)
+                    return;
+
+                Rotate(extractedLayer);
                 ReconstructNorthenSectionMatrix(layer, layer, (_matrix.GetLength(1)) - layer, extractedLayer, ref extractedlayerIndex);
             }
             else if (sectionType.Equals("east"))
             {
                 extractionSection.Add(1, RetrieveEasternSectionMatrix(layer, layer, _matrix.GetLength(0) - layer));
                 IList<int> extractedLayer = extractionSection[1];
-                this.Rotate(extractedLayer);
+
+                if (extractedLayer.Count == 1)
+                    return;
+
+                Rotate(extractedLayer);
                 ReconstructEasternSectionMatrix(layer, layer, _matrix.GetLength(0) - layer, extractedLayer, ref extractedlayerIndex);
             }
         }
@@ -166,39 +165,41 @@ namespace Algorithms.ImplementationHR
         {
             IList<int> sizeOfSectors = new List<int>();
             IList<int> layerExtracted = RetrieveExtractedLayer(extractedSections, sizeOfSectors);
+
             Rotate(layerExtracted);
             ReconstructWholeMatrix(layerExtracted, sizeOfSectors, layer);
         }
 
         private IList<int> RetrieveExtractedLayer(IDictionary<int, IList<int>> extractedSectors, IList<int> sizeOfSector)
         {
-            IList<int> tempList = new List<int>();
+            IList<int> extractedDataMerged = new List<int>();
 
             for (int sectorsKeys = 0; sectorsKeys < extractedSectors.Count; sectorsKeys++)
             {
                 if (extractedSectors[sectorsKeys].Count > 0)
                 {
-                    for (int sectorsPosition = 0; sectorsPosition < extractedSectors[sectorsKeys].Count; sectorsPosition++)
+                    /*for (int sectorsPosition = 0; sectorsPosition < extractedSectors[sectorsKeys].Count; sectorsPosition++)
                     {
-                        tempList.Add(extractedSectors[sectorsKeys][sectorsPosition]);
-                    }
+                        extractedDataMerged.Add(extractedSectors[sectorsKeys][sectorsPosition]);
+                    }*/
+                    var tempdList = extractedDataMerged.Concat(extractedSectors[sectorsKeys]);
+                    extractedDataMerged = tempdList.ToList();
                     sizeOfSector.Add(extractedSectors[sectorsKeys].Count);
                 }
             }
 
-            return tempList;
+            return extractedDataMerged;
         }       
 
         private void Rotate(IList<int> list)
         {
-            int holdFirst = list[0];
-
-            for (int index = 0; index < list.Count - 1; index++)
+            for (int cycle = 0; cycle < _rotation; cycle++)
             {
-                list[index] = list[index + 1];
-            }
+                int holdFirst = list[0];
 
-            list[list.Count - 1] = holdFirst;
+                list.RemoveAt(0);
+                list.Add(holdFirst);
+            }
         }
 
         private void ReconstructWholeMatrix(IList<int> extractedLayer, IList<int> sizeOfSectors, int layer)

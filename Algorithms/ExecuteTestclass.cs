@@ -64,7 +64,7 @@ namespace Algorithms
             /*ImplementationHR.EmaSuper _ema = new ImplementationHR.EmaSuper();
             _ema.Execute3();*/
 
-            ImplementationHR.MatrixLayerHRimple _matrixLayer = new ImplementationHR.MatrixLayerHRimple(3, 6, 1);
+            ImplementationHR.MatrixLayerHRimple _matrixLayer = new ImplementationHR.MatrixLayerHRimple(4, 4, 2);
             _matrixLayer.Execute();
 
             System.Console.Read();
