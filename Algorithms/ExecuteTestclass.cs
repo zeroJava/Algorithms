@@ -64,8 +64,11 @@ namespace Algorithms
             /*ImplementationHR.EmaSuper _ema = new ImplementationHR.EmaSuper();
             _ema.Execute3();*/
 
-            ImplementationHR.MatrixLayerHRimple _matrixLayer = new ImplementationHR.MatrixLayerHRimple(4, 4, 2);
+            ImplementationHR.MatrixLayerHRimple _matrixLayer = new ImplementationHR.MatrixLayerHRimple(10, 10, 80000000);
             _matrixLayer.Execute();
+
+            /*ImplementationHR.MatrixLayerTwo _matri2 = new ImplementationHR.MatrixLayerTwo(5 , 5, 42000000);
+            _matri2.Execute();*/
 
             System.Console.Read();
         }

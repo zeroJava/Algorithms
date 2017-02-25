@@ -53,6 +53,7 @@
     <Compile Include="ImplementationHR\GridsearchHRimplementation.cs" />
     <Compile Include="ImplementationHR\LisaWorkbook.cs" />
     <Compile Include="ImplementationHR\MatrixLayerHRimple.cs" />
+    <Compile Include="ImplementationHR\MatrixLayerSlowerV.cs" />
     <Compile Include="ImplementationHR\Servicelane.cs" />
     <Compile Include="ImplementationHR\SherlockandSquare.cs" />
     <Compile Include="ImplementationHR\LongFactorialHRimplementation.cs" />
