@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitManipulationHR\CiperHR.cs" />
+    <Compile Include="ImplementationHR\AppleOrangeHRimple.cs" />
     <Compile Include="ImplementationHR\Cavitymap.cs" />
     <Compile Include="ImplementationHR\CeaserCipher.cs" />
     <Compile Include="ImplementationHR\CutTheSticks.cs" />
@@ -51,6 +53,7 @@
     <Compile Include="ImplementationHR\EncrytionHRimplementation.cs" />
     <Compile Include="ExecuteTestclass.cs" />
     <Compile Include="ImplementationHR\GridsearchHRimplementation.cs" />
+    <Compile Include="ImplementationHR\LarrysArray.cs" />
     <Compile Include="ImplementationHR\LisaWorkbook.cs" />
     <Compile Include="ImplementationHR\MatrixLayerHRimple.cs" />
     <Compile Include="ImplementationHR\MatrixLayerSlowerV.cs" />
@@ -76,6 +79,7 @@
     <Content Include="SortHR\InputFullCount.txt" />
     <Content Include="SortHR\OutputFullCount.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
