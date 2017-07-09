@@ -31,7 +31,7 @@ namespace Algorithms.ImplementationHR
 
                 if (perfectSet)
                     continue;
-                this.Reshuffle(location, array);
+                this.Reshuffle(cycle, array);
             }
 
             System.Console.WriteLine(CheckAligned(array) ? "YES" : "NO");
@@ -74,7 +74,7 @@ namespace Algorithms.ImplementationHR
                     array[startIndex + 2] = indexTwo;
 
                     int location;
-                    if (!ScanThreeIndicies(startIndex, out location, array))
+                    if (ScanThreeIndicies(startIndex, out location, array))
                         break;
                 }
             }
