@@ -8,30 +8,54 @@ namespace Algorithms.ImplementationHR
 {
     public class LarrysArray
     {
+        private List<int[]> _arrayList = new List<int[]>();
+
         public void Execute()
         {
             System.Console.WriteLine("Enter testcase");
             int testcase = int.Parse(Console.ReadLine());
             for (int cycle = 0; cycle <  testcase; cycle++)
             {
-                ExecuteAlgo();
+                System.Console.WriteLine("Enter size\n. And enter array value");
+                int size = int.Parse(Console.ReadLine());
+                _arrayList.Add(Array.ConvertAll(Console.ReadLine().Split(' '), int.Parse));
             }
+            this.ExecuteAlgo();
         }
 
         private void ExecuteAlgo()
         {
-            System.Console.WriteLine("Enter size\n. And enter array value");
-            int size = int.Parse(Console.ReadLine());
-            int[] array = Array.ConvertAll(Console.ReadLine().Split(' '), int.Parse);
+            foreach (int[] array in _arrayList)
+                this.BusinessLogic(array);
+        }
 
-            for (int cycle = 0; cycle < array.Length; cycle++)
+        private void BusinessLogic(int[] array)
+        {
+            int cycle = 0;
+            while (cycle < array.Length)
             {
+                if (cycle < 0)
+                {
+                    cycle++;
+                    continue;
+                }
+
                 int location;
                 bool perfectSet = this.ScanThreeIndicies(cycle, out location, array);
 
                 if (perfectSet)
+                {
+                    cycle++;
                     continue;
-                this.Reshuffle(cycle, array);
+                }
+
+                if (Shuffle(cycle, array))
+                {
+                    cycle--;
+                    continue;
+                }
+
+                cycle++;
             }
 
             System.Console.WriteLine(CheckAligned(array) ? "YES" : "NO");
@@ -56,7 +80,7 @@ namespace Algorithms.ImplementationHR
             return true;
         }
 
-        private void Reshuffle(int startIndex, int[] array)
+        private bool Shuffle(int startIndex, int[] array)
         {
             int endIndex = startIndex + 2;
             int limit = endIndex < array.Length ? endIndex : array.Length - 1;
@@ -75,9 +99,11 @@ namespace Algorithms.ImplementationHR
 
                     int location;
                     if (ScanThreeIndicies(startIndex, out location, array))
-                        break;
+                        return true;
                 }
             }
+
+            return false;
         }
 
         private bool CheckAligned(int[] array)
@@ -97,6 +123,7 @@ namespace Algorithms.ImplementationHR
         {
             foreach (int number in array)
                 System.Console.Write(number + " ");
+            System.Console.Write("\n");
         }
     }
 }
