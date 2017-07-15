@@ -9,6 +9,7 @@ namespace Algorithms.ImplementationHR
     public class LarrysArray
     {
         private List<int[]> _arrayList = new List<int[]>();
+        private const string _input = "52 59 20";
 
         public void Execute()
         {
@@ -18,7 +19,8 @@ namespace Algorithms.ImplementationHR
             {
                 System.Console.WriteLine("Enter size\n. And enter array value");
                 int size = int.Parse(Console.ReadLine());
-                _arrayList.Add(Array.ConvertAll(Console.ReadLine().Split(' '), int.Parse));
+                //_arrayList.Add(Array.ConvertAll(Console.ReadLine().Split(' '), int.Parse));
+                _arrayList.Add(Array.ConvertAll(_input.Split(' '), int.Parse));
             }
             this.ExecuteAlgo();
         }
@@ -26,33 +28,37 @@ namespace Algorithms.ImplementationHR
         private void ExecuteAlgo()
         {
             foreach (int[] array in _arrayList)
-                this.BusinessLogic(array);
+                this.ScanAndRotateIndicesArray(array);
         }
 
-        private void BusinessLogic(int[] array)
+        private void ScanAndRotateIndicesArray(int[] array)
         {
+            bool finalChecked = false;
             int cycle = 0;
-            while (cycle < array.Length)
+            while (cycle < array.Length - 2)
             {
                 if (cycle < 0)
-                {
                     cycle++;
-                    continue;
+
+                this.RotateIndices(cycle, array);
+
+                if (cycle > 0)
+                {
+                    if (array[cycle - 1] > array[cycle])
+                    {
+                        finalChecked = false;
+                        cycle--;
+                        continue;
+                    }
                 }
 
-                int location;
-                bool perfectSet = this.ScanThreeIndicies(cycle, out location, array);
-
-                if (perfectSet)
+                if (cycle == array.Length - 3 && !finalChecked)
                 {
-                    cycle++;
-                    continue;
-                }
-
-                if (Shuffle(cycle, array))
-                {
-                    cycle--;
-                    continue;
+                    if (!CheckThreeIndicesAligned(cycle, array))
+                    {
+                        finalChecked = true;
+                        continue;
+                    }
                 }
 
                 cycle++;
@@ -62,9 +68,8 @@ namespace Algorithms.ImplementationHR
             DisplayArray(array);
         }
 
-        private bool ScanThreeIndicies(int startIndex, out int location, int[] array)
+        private bool CheckThreeIndicesAligned(int startIndex, int[] array)
         {
-            location = 0;
             int endIndex = startIndex + 2;
             int limit = endIndex < array.Length ? endIndex : array.Length - 1;
 
@@ -72,7 +77,6 @@ namespace Algorithms.ImplementationHR
             {
                 if (array[scanIndex] > array[scanIndex + 1])
                 {
-                    location = scanIndex;
                     return false;
                 }
             }
@@ -80,7 +84,7 @@ namespace Algorithms.ImplementationHR
             return true;
         }
 
-        private bool Shuffle(int startIndex, int[] array)
+        private bool RotateIndices(int startIndex, int[] array)
         {
             int endIndex = startIndex + 2;
             int limit = endIndex < array.Length ? endIndex : array.Length - 1;
@@ -97,8 +101,7 @@ namespace Algorithms.ImplementationHR
                     array[startIndex + 1] = indexOne;
                     array[startIndex + 2] = indexTwo;
 
-                    int location;
-                    if (ScanThreeIndicies(startIndex, out location, array))
+                    if (array[startIndex] < array[startIndex + 1])
                         return true;
                 }
             }
