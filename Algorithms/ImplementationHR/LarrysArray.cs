@@ -9,7 +9,7 @@ namespace Algorithms.ImplementationHR
     public class LarrysArray
     {
         private List<int[]> _arrayList = new List<int[]>();
-        private const string _input = "52 59 20";
+        //private const string _input = "";
 
         public void Execute()
         {
@@ -19,8 +19,8 @@ namespace Algorithms.ImplementationHR
             {
                 System.Console.WriteLine("Enter size\n. And enter array value");
                 int size = int.Parse(Console.ReadLine());
-                //_arrayList.Add(Array.ConvertAll(Console.ReadLine().Split(' '), int.Parse));
-                _arrayList.Add(Array.ConvertAll(_input.Split(' '), int.Parse));
+                _arrayList.Add(Array.ConvertAll(Console.ReadLine().Split(' '), int.Parse));
+                //_arrayList.Add(Array.ConvertAll(_input.Split(' '), int.Parse));
             }
             this.ExecuteAlgo();
         }
@@ -93,13 +93,24 @@ namespace Algorithms.ImplementationHR
             {
                 for (int cycle = 0; cycle < 3; cycle++)
                 {
+                    int smallestNumber = this.SmallestNumber(startIndex, array);
+
                     int indexOne = array[startIndex];
                     int indexTwo = array[startIndex + 1];
                     int indexThree = array[startIndex + 2];
 
-                    array[startIndex] = indexThree;
-                    array[startIndex + 1] = indexOne;
-                    array[startIndex + 2] = indexTwo;
+                    if (smallestNumber == array[startIndex + 1])
+                    {
+                        array[startIndex] = indexTwo;
+                        array[startIndex + 1] = indexThree;
+                        array[startIndex + 2] = indexOne;
+                    }
+                    else if (smallestNumber == array[startIndex + 2])
+                    {
+                        array[startIndex] = indexThree;
+                        array[startIndex + 1] = indexOne;
+                        array[startIndex + 2] = indexTwo;
+                    }
 
                     if (array[startIndex] < array[startIndex + 1])
                         return true;
@@ -107,6 +118,21 @@ namespace Algorithms.ImplementationHR
             }
 
             return false;
+        }
+
+        private int SmallestNumber(int startIndex, int[] array)
+        {
+            int smallestNumber = 0;
+
+            if (array[startIndex] < array[startIndex + 1])
+                smallestNumber = array[startIndex];
+            else
+                smallestNumber = array[startIndex + 1];
+
+            if (smallestNumber > array[startIndex + 2])
+                smallestNumber = array[startIndex + 2];
+
+            return smallestNumber;
         }
 
         private bool CheckAligned(int[] array)
@@ -127,6 +153,60 @@ namespace Algorithms.ImplementationHR
             foreach (int number in array)
                 System.Console.Write(number + " ");
             System.Console.Write("\n");
+        }
+
+        [Obsolete("Incomplete")]
+        private void AlgoExecuteMatrix()
+        {
+            foreach (int[] array in _arrayList)
+            {
+                int[,] matrix = this.CreateMatrix(array);
+                this.RotateMatrix(matrix);
+            }
+        }
+
+        [Obsolete("Incomplete")]
+        private int[,] CreateMatrix(int[] array)
+        {
+            int columnSize = 3;
+            int rowSize = (int)Math.Ceiling((double)(array.Length / 2));
+            int[,] matrix = new int[rowSize, columnSize];
+
+            int arrayIndex = 0;
+            
+            for (int row = 0; row < matrix.GetLength(0); row++)
+            {
+                for (int column = 0; column < matrix.GetLength(1); column++)
+                {
+                    if (arrayIndex < array.Length)
+                        matrix[row, column] = array[arrayIndex];
+                    arrayIndex++;
+                }
+            }
+
+            return matrix;
+        }
+
+        [Obsolete]
+        private void RotateMatrix(int[,] matrix)
+        {
+            for (int row = 0; row < matrix.GetLength(0); row++)
+            {
+                int[] tempArray = new int[] { matrix[row, 0], matrix[row, 1], matrix[row, 3] };
+
+                if (!CheckAligned(tempArray))
+                    this.RotateIndices(0, tempArray);
+
+                matrix[row, 0] = tempArray[0];
+                matrix[row, 1] = tempArray[1];
+                matrix[row, 2] = tempArray[2];
+            }
+        }
+
+        [Obsolete]
+        private void MatrixReAlignment(int[,] matrix)
+        {
+            int[,] newMatrix = new int[matrix.GetLength(0), matrix.GetLength(1)];
         }
     }
 }
