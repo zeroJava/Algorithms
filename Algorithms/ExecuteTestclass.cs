@@ -73,8 +73,10 @@ namespace Algorithms
             /*BitManipulationHR.CiperHR _cipher = new BitManipulationHR.CiperHR();
             _cipher.ExecuteAlgo();*/
 
-            ImplementationHR.LarrysArray _larrysArray = new ImplementationHR.LarrysArray();
-            _larrysArray.Execute();
+            /*ImplementationHR.LarrysArray _larrysArray = new ImplementationHR.LarrysArray();
+            _larrysArray.Execute();*/
+
+            WarmupHR.BirthdayCakeCadles.Execute();
 
             System.Console.Read();
         }

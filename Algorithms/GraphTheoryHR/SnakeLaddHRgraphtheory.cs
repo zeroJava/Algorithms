@@ -49,6 +49,23 @@ namespace Algorithms
             }
         }
 
+        public SnakeLaddHRgraphtheory(bool just)
+        {
+            int testcase = Int32.Parse(System.Console.ReadLine());
+
+            for (int i = 0; i < testcase; i++)
+            {
+                string str1 = System.Console.ReadLine();
+                int laddersNo = Int32.Parse(str1);
+
+                string str2 = System.Console.ReadLine();
+                int snakesNo = Int32.Parse(str2);
+
+                Console.WriteLine(Simulation());
+                //Console.ReadKey();
+            }
+        }
+
         public int[,] GenerateCoordinates(int row)
         {
             int[,] coordinates = new int[row, 2];
@@ -231,6 +248,23 @@ namespace Algorithms
             }
 
             System.Console.WriteLine();
+        }
+
+        private int SimulateSnakeLadders()
+        {
+            return 0;
+        }
+
+        private class Node
+        {
+            public int Index { get; set; }
+            public int Turn { get; set; }
+
+            public Node(int index, int turn)
+            {
+                this.Index = index;
+                this.Turn = turn;
+            }
         }
     }
 }

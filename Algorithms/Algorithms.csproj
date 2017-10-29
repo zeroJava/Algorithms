@@ -71,6 +71,7 @@
     <Compile Include="SortHR\FullCountingSortWithClasses.cs" />
     <Compile Include="SortHR\QuickSortInPlace.cs" />
     <Compile Include="SortHR\SherlockPairs.cs" />
+    <Compile Include="WarmupHR\BirthdayCakeCadles.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
