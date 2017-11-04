@@ -76,7 +76,10 @@ namespace Algorithms
             /*ImplementationHR.LarrysArray _larrysArray = new ImplementationHR.LarrysArray();
             _larrysArray.Execute();*/
 
-            WarmupHR.BirthdayCakeCadles.Execute();
+            //WarmupHR.BirthdayCakeCadles.Execute();
+
+            ImplementationHR.MatrixLayerSlowerV _slowerMatrix = new ImplementationHR.MatrixLayerSlowerV(3, 2, 1);
+            _slowerMatrix.Execute();
 
             System.Console.Read();
         }
