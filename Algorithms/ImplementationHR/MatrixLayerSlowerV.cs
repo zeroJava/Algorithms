@@ -63,6 +63,14 @@ namespace Algorithms.ImplementationHR
             int[,] tempMatrix = new int[_matrix.GetLength(0), _matrix.GetLength(1)];
             for (int layer = 0; layer < _leastPossibleLayer; layer++)
             {
+                if (layer == (_matrix.GetLength(0) - 1) - layer 
+                    && layer == (_matrix.GetLength(1) - 1) - layer)
+                {
+                    int loc = (_matrix.GetLength(0) - layer) - 1;
+                    tempMatrix[loc, loc] = _matrix[loc, loc];
+                    continue;
+                }
+
                 int firstValue = _matrix[layer, layer];
                 int nCol = layer;
                 int nRow = layer;
@@ -96,36 +104,21 @@ namespace Algorithms.ImplementationHR
                     eCol = nCol;
                 }
 
-                //bool lastERowAssigned = false;
                 int sCol = eCol;
                 int sRow = eRow;
                 // south side
-                // for (int southCol = eCol; southCol > _matrix.GetLength(1) - (_matrix.GetLength(1) - layer); southCol--)
                 for (int southCol = (_matrix.GetLength(1) - layer) - 1; southCol > layer ; southCol--)
                 {
-                    /*if (!lastERowAssigned)
-                    {
-                        tempMatrix[sRow, southCol] = _matrix[sRow, southCol];
-                        lastERowAssigned = true;
-                    }*/
                     tempMatrix[sRow, southCol] = _matrix[sRow, southCol -1];
                     sCol = southCol - 1;
                     sRow = eRow;
                 }
 
-                //bool lastSColumnAssogned = false;
                 int wCol = sCol;
                 int wRow = sRow;
                 // west side
-                // for (int westRow = wRow; westRow > _matrix.GetLength(0) - (_matrix.GetLength(0) - layer); westRow--)
                 for (int westRow = (_matrix.GetLength(0) - layer) - 1; westRow > layer; westRow--)
                 {
-                    /*if (!lastSColumnAssogned)
-                    {
-                        tempMatrix[westRow + 1, wCol] = _matrix[westRow, wCol];
-                        lastSColumnAssogned = true;
-                    }*/
-
                     tempMatrix[westRow, wCol] = _matrix[westRow - 1, wCol];
                     wRow = westRow;
                     wCol = sCol;
