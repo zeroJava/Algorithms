@@ -78,7 +78,7 @@ namespace Algorithms
 
             //WarmupHR.BirthdayCakeCadles.Execute();
 
-            ImplementationHR.MatrixLayerSlowerV _slowerMatrix = new ImplementationHR.MatrixLayerSlowerV(3, 2, 1);
+            ImplementationHR.MatrixLayerSlowerV _slowerMatrix = new ImplementationHR.MatrixLayerSlowerV(5, 5, 1);
             _slowerMatrix.Execute();
 
             System.Console.Read();

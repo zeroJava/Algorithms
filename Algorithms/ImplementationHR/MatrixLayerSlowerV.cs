@@ -29,6 +29,7 @@ namespace Algorithms.ImplementationHR
             {
                 _matrix = RotateTheMatrix();
             }
+            Console.WriteLine("");
             DisplayMatrix();
         }
 
@@ -91,7 +92,7 @@ namespace Algorithms.ImplementationHR
                         lastNColumnAssigned = true;
                     }
                     tempMatrix[eastRow, nCol] = _matrix[eastRow + 1, nCol];
-                    eRow = eastRow;
+                    eRow = eastRow + 1;
                     eCol = nCol;
                 }
 
@@ -99,7 +100,8 @@ namespace Algorithms.ImplementationHR
                 int sCol = eCol;
                 int sRow = eRow;
                 // south side
-                for (int southCol = eCol; southCol > _matrix.GetLength(1) - (_matrix.GetLength(1) - layer); southCol--)
+                // for (int southCol = eCol; southCol > _matrix.GetLength(1) - (_matrix.GetLength(1) - layer); southCol--)
+                for (int southCol = (_matrix.GetLength(1) - layer) - 1; southCol > layer ; southCol--)
                 {
                     /*if (!lastERowAssigned)
                     {
@@ -107,7 +109,7 @@ namespace Algorithms.ImplementationHR
                         lastERowAssigned = true;
                     }*/
                     tempMatrix[sRow, southCol] = _matrix[sRow, southCol -1];
-                    sCol = southCol;
+                    sCol = southCol - 1;
                     sRow = eRow;
                 }
 
@@ -115,7 +117,8 @@ namespace Algorithms.ImplementationHR
                 int wCol = sCol;
                 int wRow = sRow;
                 // west side
-                for (int westRow = wRow; westRow > _matrix.GetLength(0) - (_matrix.GetLength(0) - layer); westRow--)
+                // for (int westRow = wRow; westRow > _matrix.GetLength(0) - (_matrix.GetLength(0) - layer); westRow--)
+                for (int westRow = (_matrix.GetLength(0) - layer) - 1; westRow > layer; westRow--)
                 {
                     /*if (!lastSColumnAssogned)
                     {
@@ -128,7 +131,7 @@ namespace Algorithms.ImplementationHR
                     wCol = sCol;
                 }
 
-                tempMatrix[1, 0] = firstValue;
+                tempMatrix[layer + 1, layer] = firstValue;
             }
 
             return tempMatrix;
