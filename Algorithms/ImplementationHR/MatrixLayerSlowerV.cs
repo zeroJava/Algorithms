@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Algorithms.ImplementationHR
@@ -25,11 +26,18 @@ namespace Algorithms.ImplementationHR
         public void Execute()
         {
             InitialiseMatrix();
-            for (int cycle = 0; cycle < _rotation; cycle++)
+            //List<Task> tasks = new List<Task>();
+
+            /*for (int layer = 0; layer < _leastPossibleLayer; layer++)
             {
-                _matrix = RotateTheMatrix();
-            }
+                int layerNumber = layer;
+                tasks.Add(Task.Factory.StartNew(() => RotateMatrixAlgo(layerNumber)));
+            }*/
+
+            Parallel.For(0, _leastPossibleLayer, l => RotateMatrixAlgo(l));
+
             Console.WriteLine("");
+            //Task.WaitAll(tasks.ToArray());
             DisplayMatrix();
         }
 
@@ -45,87 +53,84 @@ namespace Algorithms.ImplementationHR
             }
         }
 
-        private int[,] RotatedMatrix()
+        private void RotateMatrixAlgo(int layer)
         {
-            int[,] newMatrix = new int[_matrix.GetLength(0), _matrix.GetLength(1)];
-            for (int row = 0; row < _matrix.GetLength(0); ++row)
+            //int[,] tempMatrix = _matrix;
+            for (int cycle = 0; cycle < _rotation; cycle++)
             {
-                for (int column = 0; column < _matrix.GetLength(1); ++column)
-                {
-                    newMatrix[row, column] = _matrix[(_matrix.GetLength(0) - column) - 1, row];
-                }
+                //tempMatrix = this.RotationMatrixElements(layer, tempMatrix);
+                _matrix = this.RotationMatrixElements(layer, _matrix);
             }
-            return newMatrix;
+
+            //return tempMatrix;
         }
 
-        private int[,] RotateTheMatrix()
+        private int[,] RotationMatrixElements(int layer, int[,] matrix)
         {
-            int[,] tempMatrix = new int[_matrix.GetLength(0), _matrix.GetLength(1)];
-            for (int layer = 0; layer < _leastPossibleLayer; layer++)
+            int[,] tempMatrix = matrix;
+
+            if (layer == (matrix.GetLength(0) - 1) - layer
+                    && layer == (matrix.GetLength(1) - 1) - layer)
             {
-                if (layer == (_matrix.GetLength(0) - 1) - layer 
-                    && layer == (_matrix.GetLength(1) - 1) - layer)
-                {
-                    int loc = (_matrix.GetLength(0) - layer) - 1;
-                    tempMatrix[loc, loc] = _matrix[loc, loc];
-                    continue;
-                }
-
-                int firstValue = _matrix[layer, layer];
-                int nCol = layer;
-                int nRow = layer;
-                // north side
-                for (int northColumn = layer; northColumn < (_matrix.GetLength(1) - layer) - 1; northColumn++)
-                {
-                    tempMatrix[layer, northColumn] = _matrix[layer, northColumn + 1];
-                    nRow = layer;
-                    nCol = northColumn + 1;
-                }
-
-                if (layer >= (_matrix.GetLength(0) - layer))
-                {
-                    tempMatrix[nRow, nCol] = firstValue; ;
-                    continue;
-                }
-
-                bool lastNColumnAssigned = false;
-                int eCol = nCol;
-                int eRow = layer;
-                // west side
-                for (int eastRow = layer; eastRow < (_matrix.GetLength(0) - layer) - 1; eastRow++)
-                {
-                    if (!lastNColumnAssigned)
-                    {
-                        tempMatrix[eastRow, nCol] = _matrix[eastRow, nCol];
-                        lastNColumnAssigned = true;
-                    }
-                    tempMatrix[eastRow, nCol] = _matrix[eastRow + 1, nCol];
-                    eRow = eastRow + 1;
-                    eCol = nCol;
-                }
-
-                int sCol = eCol;
-                int sRow = eRow;
-                // south side
-                for (int southCol = (_matrix.GetLength(1) - layer) - 1; southCol > layer ; southCol--)
-                {
-                    tempMatrix[sRow, southCol] = _matrix[sRow, southCol -1];
-                    sCol = southCol - 1;
-                    sRow = eRow;
-                }
-
-                int wCol = sCol;
-                int wRow = sRow;
-                // west side
-                for (int westRow = (_matrix.GetLength(0) - layer) - 1; westRow > layer; westRow--)
-                {
-                    tempMatrix[westRow, wCol] = _matrix[westRow - 1, wCol];
-                    wRow = westRow;
-                    wCol = sCol;
-                }
-
-                tempMatrix[layer + 1, layer] = firstValue;
+                int loc = (matrix.GetLength(0) - layer) - 1;
+                tempMatrix[loc, loc] = matrix[loc, loc];
+                return tempMatrix;
             }
+
+            int firstValue = matrix[layer, layer];
+            int nCol = layer;
+            int nRow = layer;
+            // north side
+            for (int northColumn = layer; northColumn < (matrix.GetLength(1) - layer) - 1; northColumn++)
+            {
+                tempMatrix[layer, northColumn] = matrix[layer, northColumn + 1];
+                nRow = layer;
+                nCol = northColumn + 1;
+            }
+
+            if (layer >= (matrix.GetLength(0) - layer))
+            {
+                tempMatrix[nRow, nCol] = firstValue; ;
+                return tempMatrix;
+            }
+
+            bool lastNColumnAssigned = false;
+            int eCol = nCol;
+            int eRow = layer;
+            // west side
+            for (int eastRow = layer; eastRow < (matrix.GetLength(0) - layer) - 1; eastRow++)
+            {
+                if (!lastNColumnAssigned)
+                {
+                    tempMatrix[eastRow, nCol] = matrix[eastRow, nCol];
+                    lastNColumnAssigned = true;
+                }
+                tempMatrix[eastRow, nCol] = matrix[eastRow + 1, nCol];
+                eRow = eastRow + 1;
+                eCol = nCol;
+            }
+
+            int sCol = eCol;
+            int sRow = eRow;
+            // south side
+            for (int southCol = (matrix.GetLength(1) - layer) - 1; southCol > layer; southCol--)
+            {
+                tempMatrix[sRow, southCol] = matrix[sRow, southCol - 1];
+                sCol = southCol - 1;
+                sRow = eRow;
+            }
+
+            int wCol = sCol;
+            int wRow = sRow;
+            // west side
+            for (int westRow = (matrix.GetLength(0) - layer) - 1; westRow > layer; westRow--)
+            {
+                tempMatrix[westRow, wCol] = matrix[westRow - 1, wCol];
+                wRow = westRow;
+                wCol = sCol;
+            }
+
+            tempMatrix[layer + 1, layer] = firstValue;
 
             return tempMatrix;
         }
