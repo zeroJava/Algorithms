@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Algorithms.ImplementationHR
 {
-    public class QueensAttack
+    public class QueensAttackTwo
     {
         /* [9]
          * [8]
