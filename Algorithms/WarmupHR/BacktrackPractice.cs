@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Algorithms.WarmupHR
 {
@@ -61,7 +58,7 @@ namespace Algorithms.WarmupHR
 			{
 				for (int row = xrow; row >= 0; row--)
 				{
-					
+
 				}
 			}
 			return 0;

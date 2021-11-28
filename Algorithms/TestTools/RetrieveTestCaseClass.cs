@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Algorithms.TestTools
+﻿namespace Algorithms.TestTools
 {
-    public class RetrieveTestCaseClass
-    {
-        public static string TestCaseData()
+	public class RetrieveTestCaseClass
+	{
+		public static string TestCaseData()
 		{
-            return string.Empty;
-        }
-    }
+			return string.Empty;
+		}
+	}
 }
