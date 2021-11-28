@@ -75,3 +75,5 @@ Algorithms/obj/Debug/Algorithms.exe
 Algorithms/obj/Debug/.NETFramework,Version=v4.5.2.AssemblyAttributes.cs
 Algorithms/obj/Algorithms.csproj.nuget.g.targets
 Algorithms/bin/Debug/net6.0/Algorithms.dll.config
+.vs/Algorithms/v17/.futdcache.v1
+.vs/Algorithms/DesignTimeBuild/.dtbcache.v2
