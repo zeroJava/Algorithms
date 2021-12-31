@@ -79,7 +79,10 @@ namespace Algorithms
 
 			//BacktrackPractice.ExecuteAlgo();
 
-			ImplementationHR.BiggerIsGreaterAlgo.Execute();
+			//ImplementationHR.BiggerIsGreaterAlgo.Execute();
+
+			//Zero.AStarAlgorithm.Execute();
+			//Zero.EightPzlAStarAlgo.Execute();
 
 			Console.Read();
 		}
